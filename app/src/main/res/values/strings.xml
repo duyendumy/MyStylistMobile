@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyStylistMobile</string>
+    <string-array name="size_array">
+        <item></item>
+        <item>100</item>
+        <item>200</item>
+        <item>300</item>
+    </string-array>
+</resources>
