@@ -15,31 +15,97 @@
         android:theme="@style/Theme.MyStylistMobile"
         tools:targetApi="31">
         <activity
-            android:name=".activity.SeasonalColorActivity"
+            android:name=".activity.AddStyleTypeQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.QuizActivity"
+            android:name=".activity.ContrastQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.TempQuizActivity"
+            android:name=".activity.UndertoneQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.BodyTypeActivity"
+            android:name=".activity.AddCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ResultActivity"
+            android:name=".activity.ManagementStyleTypeQuestion"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.ManagementSeasonalColorQuestion"
             android:exported="false" />
         <activity
-            android:name=".activity.CategoryActivity"
+            android:name=".activity.ManagementItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ManagementCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HowToStyleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SuggestOutfitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserOutfitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UserItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddOutfitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddUserItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AIStylistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ClosetActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.CategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BodyTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BodyTypeAboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SeasonalColorActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FashionStyleQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FashionStyleAboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SeasonalColorQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ItemCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FashionStyleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ColorPaletteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SeasonalColorAboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BodyMeasurementsActivity"
             android:exported="false" />
         <activity
             android:name=".activity.GetStartedActivity"
@@ -48,7 +114,10 @@
             android:name=".activity.FirebaseActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.BodyMeasurementsActivity"
+            android:name=".activity.DNAActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

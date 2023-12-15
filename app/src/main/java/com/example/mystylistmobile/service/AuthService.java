@@ -1,8 +1,10 @@
 package com.example.mystylistmobile.service;
 
 import com.example.mystylistmobile.dto.auth.LoginRequest;
+import com.example.mystylistmobile.dto.auth.TokenRequest;
 import com.example.mystylistmobile.dto.auth.UserCreateDTO;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
+import com.example.mystylistmobile.dto.response.JwtResponse;
 import com.example.mystylistmobile.dto.response.RegisterV2ResponseDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
 import com.example.mystylistmobile.dto.response.UserPaging;
@@ -18,5 +20,8 @@ public interface AuthService {
     Call<RegisterV2ResponseDTO> login(@Body LoginRequest loginRequest);
 
     @POST("auth/register")
-    Call<Void> register(@Body LoginRequest loginRequest);
+    Call<Void> register(@Body UserCreateDTO userCreateDTO);
+
+    @POST("auth/refresh-tokens")
+    Call<ResponseModel<JwtResponse,ErrorDTO>> refreshToken(@Body TokenRequest tokenRequest);
 }

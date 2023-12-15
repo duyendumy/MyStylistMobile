@@ -5,9 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor
@@ -15,8 +13,7 @@ import lombok.Setter;
 @Builder
 public class RegisterV2ResponseDTO {
 
-
-
+    @SerializedName("user")
     private UserResponseDTO user;
     @SerializedName("tokens")
     private TokenResponse tokens;
@@ -62,4 +59,6 @@ public class RegisterV2ResponseDTO {
             this.refresh = refresh;
         }
     }
+
+
 }

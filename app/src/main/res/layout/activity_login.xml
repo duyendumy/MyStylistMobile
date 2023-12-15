@@ -43,7 +43,7 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Email"
-                android:drawableLeft="@drawable/person"
+                android:drawableLeft="@drawable/nav_person"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 
@@ -57,6 +57,17 @@
                 android:padding="8dp"
                 android:hint="Password"
                 android:drawableLeft="@drawable/baseline_lock"
+                android:textColor="@color/black"
+                android:drawablePadding="8dp"/>
+
+            <CheckBox
+                android:id="@+id/saveLoginCheckBox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/inputPassword"
+                android:text="Remeber me?"
                 android:textColor="@color/black"
                 android:drawablePadding="8dp"/>
 

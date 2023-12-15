@@ -9,15 +9,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Builder
 public class TokenDTO {
     @SerializedName("token")
     private String token;
     @SerializedName("expires")
     private String expires;
+
+    public TokenDTO() {
+    }
+
+    public TokenDTO(String token, String expires) {
+        this.token = token;
+        this.expires = expires;
+    }
 
     public String getToken() {
         return token;

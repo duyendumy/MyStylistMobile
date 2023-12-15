@@ -3,7 +3,13 @@ package com.example.mystylistmobile.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.auth.LoginRequest;
+import com.example.mystylistmobile.dto.auth.UserCreateDTO;
 import com.example.mystylistmobile.dto.response.RegisterV2ResponseDTO;
 import com.example.mystylistmobile.dto.response.TokenDTO;
 import com.example.mystylistmobile.helper.SessionManager;
@@ -29,20 +36,30 @@ public class SignUpActivity extends AppCompatActivity {
     private RetrofitService retrofitService;
     private EditText userNameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     private Button signUpBtn;
-    private TextView signInTextView;
+    private TextView logInTextView;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the status bar and the action bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_sign_up);
         userNameEditText = findViewById(R.id.userNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         signUpBtn = findViewById(R.id.signUpBtn);
-        signInTextView = findViewById(R.id.signInTextView);
+        logInTextView = findViewById(R.id.logInTextView);
         signUp();
+        logIn();
     }
 
     public void signUp(){
@@ -79,8 +96,34 @@ public class SignUpActivity extends AppCompatActivity {
             }
             retrofitService = new RetrofitService();
             sessionManager = new SessionManager(this);
-            LoginRequest loginRequest = new LoginRequest(email, password);
+            UserCreateDTO userCreateDTO = new UserCreateDTO(email, password, name);
+
             AuthService authService = retrofitService.createService(AuthService.class);
+            authService.register(userCreateDTO).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Toast.makeText(SignUpActivity.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                 //   return null;
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(SignUpActivity.this, "Sign up failed!", Toast.LENGTH_SHORT).show();
+                    Logger.getLogger(SignUpActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
+                }
+            });
+        });
+    }
+
+    public void logIn(){
+        logInTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }

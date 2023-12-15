@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="170dp"
+        android:layout_height="250dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/itemCategoryImage"/>
+        <ImageView
+            android:id="@+id/filterButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/background_circle_btn"
+            app:srcCompat="@drawable/ic_trash_can"
+            android:layout_alignTop="@id/itemCategoryImage"
+            android:layout_alignBottom="@id/itemCategoryImage"
+            android:layout_alignLeft="@id/itemCategoryImage"
+            android:layout_alignRight="@id/itemCategoryImage"
+            android:scaleType="fitXY" />
+
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/categoryTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Category"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <TextView
+            android:id="@+id/nameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Name"
+            android:textSize="20sp"
+            android:textColor="@color/dark_purple"
+            app:layout_constraintTop_toTopOf="@id/categoryTxt"
+            app:layout_constraintStart_toStartOf="@id/categoryTxt"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

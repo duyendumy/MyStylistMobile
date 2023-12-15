@@ -1,7 +1,10 @@
 package com.example.mystylistmobile.retrofit;
 
+import android.content.Context;
 import android.text.TextUtils;
 
+import com.example.mystylistmobile.helper.SessionManager;
+import com.example.mystylistmobile.service.AuthService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,9 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
 
-    private static final String BASE_URL = "http://10.10.10.111:8081/my-stylist/";
+    private static final String BASE_URL = "http://192.168.1.6:8081/my-stylist/";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-   // private Retrofit retrofit;
+
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -25,7 +28,7 @@ public class RetrofitService {
         return createService(serviceClass, null);
     }
 
-    public static <S> S createService(Class<S> serviceClass, String username, String password) {
+    /*public static <S> S createService(Class<S> serviceClass, String username, String password) {
         if (!TextUtils.isEmpty(username)
                 && !TextUtils.isEmpty(password)) {
             String authToken = Credentials.basic(username, password);
@@ -33,7 +36,7 @@ public class RetrofitService {
         }
 
         return createService(serviceClass, null);
-    }
+    }*/
 
     public static <S> S createService( Class<S> serviceClass, final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
@@ -50,23 +53,25 @@ public class RetrofitService {
         return retrofit.create(serviceClass);
     }
 
+    public static <S> S createService( Class<S> serviceClass, final String authToken, final String refreshToken, Context context) {
+        AuthService authService = retrofit.create(AuthService.class);
+        if (!TextUtils.isEmpty(authToken)) {
+            AuthenticationInterceptor interceptor =
+                    new AuthenticationInterceptor(authToken, refreshToken, authService, context);
 
-   /* public RetrofitService(){
-        initializeRetrofit();
-    }
-    private void initializeRetrofit(){
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
+            if (!httpClient.interceptors().contains(interceptor)) {
+                httpClient.addInterceptor(interceptor);
+
+                builder.client(httpClient.build());
+                retrofit = builder.build();
+            }
+        }
+        return retrofit.create(serviceClass);
     }
 
-    public Retrofit getRetrofit(){
-        return retrofit;
-    }*/
+
+
+
 
 
 }

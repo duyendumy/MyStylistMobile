@@ -42,7 +42,7 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Name"
-                android:drawableLeft="@drawable/person"
+                android:drawableLeft="@drawable/nav_person"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
 
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/signInTextView"
+                android:id="@+id/logInTextView"
                 android:text="Already an user? Login"
                 android:layout_gravity="center"
                 android:padding="8dp"

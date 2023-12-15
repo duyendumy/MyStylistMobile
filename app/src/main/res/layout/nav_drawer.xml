@@ -83,7 +83,7 @@
             android:textColor="@color/dark_purple"
             android:text="Manage User"
             android:textSize="20sp"
-            android:drawableLeft="@drawable/person"
+            android:drawableLeft="@drawable/nav_person"
             android:drawablePadding="8dp"
             />
     </LinearLayout>

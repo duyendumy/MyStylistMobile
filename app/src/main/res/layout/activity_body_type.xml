@@ -6,167 +6,195 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
-    tools:context="activity.BodyTypeActivity">
+    tools:context=".activity.BodyTypeActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            layout="@layout/toolbar"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="560dp">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/titleName"
-                android:layout_marginTop="20dp"
-                android:text="Body Type Analysis"
-                android:textColor="@color/dark_purple"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/image_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/ic_back_purple" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titleName"
+                    android:layout_marginTop="14dp"
+                    android:text="Body Type Profile"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textColor="@color/dark_purple"
+                    android:layout_marginBottom="12dp"/>
+
+
+            </LinearLayout>
 
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/white_border"
                 android:orientation="vertical"
-                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleName"
-                tools:layout_editor_absoluteY="161dp">
+                app:layout_constraintTop_toBottomOf="@id/linearLayoutTitle">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/recCard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    app:cardCornerRadius="16dp"
+                    android:id="@+id/cardAboutBodyType"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/dark_blue"
+                    app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:weightSum="5.5">
+                        android:layout_height="60dp"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/recImage"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="4"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/validate_body_type_card" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="About your body type"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1.5"
-                            android:background="@drawable/card_border">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            app:cardBackgroundColor="@color/pastel_blue"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="0dp">
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1.5"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:id="@+id/recLang"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Language"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/dark_purple"
-                                    android:textSize="18sp" />
-
-                            </LinearLayout>
-                        </LinearLayout>
+                            <ImageView
+                                android:id="@+id/card_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_arrow_forward" />
+                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/recCard2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    app:cardCornerRadius="16dp"
+                    android:id="@+id/cardBodyTypeMeasurement"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@color/dark_blue"
+                    app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:weightSum="5.5">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/recImage2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="4"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/validate_body_measurements_card" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Body Measurements"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1.5"
-                            android:background="@drawable/card_border">
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1.5"
-                                android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:text="You'll need:"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                app:cardBackgroundColor="@color/pastel_blue"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="0dp">
 
                                 <TextView
-                                    android:id="@+id/recLang2"
+                                    android:id="@+id/cardTxt1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:text="5 mins"
+                                    android:textSize="10sp"
+                                    android:textColor="@color/black" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                app:cardBackgroundColor="@color/pastel_blue"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="0dp">
+
+                                <TextView
+                                    android:id="@+id/cardTxt2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Language"
-                                    android:textAlignment="center"
-                                    android:textColor="@color/dark_purple"
-                                    android:textSize="18sp" />
+                                    android:layout_margin="5dp"
+                                    android:text="Enter measurements"
+                                    android:textColor="@color/black"
+                                    android:textSize="10sp" />
 
-                            </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
                         </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/bottom_background"
-                android:elevation="2dp"
-                app:itemIconSize="30dp"
-                app:itemIconTint="@drawable/item_selector"
-                app:itemRippleColor="@android:color/transparent"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_menu" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 
