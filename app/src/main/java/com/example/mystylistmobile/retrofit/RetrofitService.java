@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitService {
 
-    private static final String BASE_URL = "http://192.168.1.6:8081/my-stylist/";
+    private static final String BASE_URL = "http://192.168.1.10:8081/my-stylist/";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =

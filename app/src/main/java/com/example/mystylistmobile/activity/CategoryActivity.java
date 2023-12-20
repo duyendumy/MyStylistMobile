@@ -14,9 +14,10 @@ import android.widget.Toast;
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.adapter.CategoryAdapter;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
-import com.example.mystylistmobile.dto.response.CategoryPaging;
 import com.example.mystylistmobile.dto.response.CategoryResponseDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
+import com.example.mystylistmobile.helper.DataManager;
+import com.example.mystylistmobile.helper.OnClickParentCategory;
 import com.example.mystylistmobile.helper.SessionManager;
 import com.example.mystylistmobile.retrofit.RetrofitService;
 import com.example.mystylistmobile.service.CategoryService;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements OnClickParentCategory {
 
     private ListView categoryListView;
 
@@ -41,6 +42,8 @@ public class CategoryActivity extends AppCompatActivity {
     private RetrofitService retrofitService;
 
     private LoadingAlert loadingAlert;
+
+    private List<CategoryResponseDTO> categoryResponseDTOList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
         categoryListView = findViewById(R.id.listview);
         loadingAlert = new LoadingAlert(CategoryActivity.this);
+
+        categoryResponseDTOList = new ArrayList<CategoryResponseDTO>();
 
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -95,6 +100,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     public void populateListView(List<CategoryResponseDTO> categories){
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
+        categoryAdapter.setOnClickParentCategory(this);
         categoryListView.setAdapter(categoryAdapter);
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,11 +115,12 @@ public class CategoryActivity extends AppCompatActivity {
     public void loadParentCategory(){
         loadingAlert.startAlertDialog();
         CategoryService itemCategoryService = retrofitService.createService(CategoryService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
-        itemCategoryService.getAllCategory().enqueue(new Callback<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>>() {
+        itemCategoryService.getSubCategoryOfCategory((long) -1).enqueue(new Callback<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>> call, Response<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>> response) {
-                if(response != null){
+                if(response.body() != null){
                     loadingAlert.closeDialog();
+                    categoryResponseDTOList = response.body().getResponse();
                     populateListView(response.body().getResponse());
                 }
             }
@@ -124,22 +131,13 @@ public class CategoryActivity extends AppCompatActivity {
                 Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
             }
         });
-       /* itemCategoryService.getAllCategory((long) -1, 0, 8, "id").enqueue(new Callback<ResponseModel<CategoryPaging, ErrorDTO>>() {
 
-            @Override
-            public void onResponse(Call<ResponseModel<CategoryPaging, ErrorDTO>> call, Response<ResponseModel<CategoryPaging, ErrorDTO>> response) {
-                if(response != null){
-                    loadingAlert.closeDialog();
-                    populateListView(response.body().getResponse().getCategories());
-                }
-            }
+    }
 
-            @Override
-            public void onFailure(Call<ResponseModel<CategoryPaging, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(CategoryActivity.this,"Get all parent categories failed!",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });*/
-
+    @Override
+    public void OnClickParentCategory(int position) {
+        CategoryResponseDTO selectedParentCategory = categoryResponseDTOList.get(position);
+        DataManager.getInstance().setParentCategoryId(selectedParentCategory.getId());
+        startActivity(new Intent(getApplicationContext(), ItemCategoryActivity.class));
     }
 }

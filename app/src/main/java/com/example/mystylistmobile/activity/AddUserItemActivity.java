@@ -233,24 +233,6 @@ public class AddUserItemActivity extends AppCompatActivity {
                 Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
             }
         });
-       /* CategoryService itemCategoryService = retrofitService.createService(CategoryService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
-
-        itemCategoryService.getAllCategory((long) -1, 0, 8, "id").enqueue(new Callback<ResponseModel<CategoryPaging, ErrorDTO>>() {
-
-            @Override
-            public void onResponse(Call<ResponseModel<CategoryPaging, ErrorDTO>> call, Response<ResponseModel<CategoryPaging, ErrorDTO>> response) {
-                if(response != null){
-                    populateCategoryListView(response.body().getResponse().getCategories());
-                }
-             //   return null;
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<CategoryPaging, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(AddItemActivity.this,"Get all parent categories failed!",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });*/
 
     }
 

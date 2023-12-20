@@ -1,32 +1,55 @@
 package com.example.mystylistmobile.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+
+import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mystylistmobile.R;
-import com.example.mystylistmobile.activity.LoginActivity;
-import com.example.mystylistmobile.dto.response.CategoryResponseDTO;
-import com.example.mystylistmobile.model.Category;
-import com.example.mystylistmobile.model.Color;
-import com.google.android.material.imageview.ShapeableImageView;
 
-import java.util.ArrayList;
+import com.example.mystylistmobile.dto.response.CategoryResponseDTO;
+import com.example.mystylistmobile.helper.OnClickParentCategory;
+
 import java.util.List;
 
-public class CategoryAdapter extends ArrayAdapter<CategoryResponseDTO> {
+public class CategoryAdapter extends BaseAdapter {
+
+    private List<CategoryResponseDTO> categories;
+    private Context context;
+
+    private OnClickParentCategory categoryListener;
+
+    public void setOnClickParentCategory(OnClickParentCategory onClickParentCategory) {
+        this.categoryListener = onClickParentCategory;
+    }
 
     public CategoryAdapter(@NonNull Context context, List<CategoryResponseDTO> categories) {
-        super(context, 0, categories);
+       this.context = context;
+       this.categories = categories;
+    }
+
+    @Override
+    public int getCount() {
+        return categories.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return categories.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 
     @NonNull
@@ -35,15 +58,24 @@ public class CategoryAdapter extends ArrayAdapter<CategoryResponseDTO> {
 
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_item, parent, false);
+            listItemView = LayoutInflater.from(context).inflate(R.layout.category_item, parent, false);
         }
 
-        CategoryResponseDTO category = getItem(position);
+        CategoryResponseDTO category = (CategoryResponseDTO) getItem(position);
         TextView nameTxt = listItemView.findViewById(R.id.listName);
-        ImageView categoryImage = listItemView.findViewById(R.id.listImage);
-
+        RelativeLayout relativeLayout = listItemView.findViewById(R.id.relativeLayout);
         nameTxt.setText(category.getName());
-        categoryImage.setImageResource(R.drawable.icon_app);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(categoryListener != null){
+                    categoryListener.OnClickParentCategory(position);
+                }
+            }
+        });
+
+
+
 
         return listItemView;
     }

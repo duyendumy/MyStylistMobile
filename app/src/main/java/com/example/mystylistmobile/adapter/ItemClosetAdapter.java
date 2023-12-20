@@ -13,18 +13,12 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
-import com.example.mystylistmobile.dto.response.ErrorDTO;
-import com.example.mystylistmobile.dto.response.ResponseModel;
-import com.example.mystylistmobile.model.Color;
-import com.example.mystylistmobile.model.ItemCategory;
-import com.example.mystylistmobile.model.ItemCloset;
-import com.example.mystylistmobile.model.User;
 import com.example.mystylistmobile.model.UserItem;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import retrofit2.Callback;
+
 
 public class ItemClosetAdapter extends ArrayAdapter<UserItem> {
 

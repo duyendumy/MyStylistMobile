@@ -1,6 +1,7 @@
 package com.example.mystylistmobile.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     private Button applyBtn, resetAllBtn;
 
+    private int isSelectedSeasonalColor, isSelectedBodyType, isSelectedStyle;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -34,44 +37,68 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         styleCheckBox = view.findViewById(R.id.styleCheckBox);
         applyBtn = view.findViewById(R.id.applyBtn);
         resetAllBtn = view.findViewById(R.id.resetAllBtn);
-        seasonalColorCheckBox.setChecked(ItemCategoryActivity.isSelectedSeasonalColor);
-        bodyTypeCheckBox.setChecked(ItemCategoryActivity.isSelectedSeasonalColor);
-        styleCheckBox.setChecked(ItemCategoryActivity.isSelectedStyle);
+        isSelectedSeasonalColor = ItemCategoryActivity.isSelectedSeasonalColor;
+        isSelectedBodyType = ItemCategoryActivity.isSelectedBodyType;
+        isSelectedStyle = ItemCategoryActivity.isSelectedStyle;
+        seasonalColorCheckBox.setChecked((isSelectedSeasonalColor == 1) ? true : false);
+        bodyTypeCheckBox.setChecked((isSelectedBodyType == 1) ? true: false);
+        styleCheckBox.setChecked((isSelectedStyle == 1) ? true: false);
         seasonalColorCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemCategoryActivity.isSelectedSeasonalColor = true;
+                if(isSelectedSeasonalColor == 0){
+                    isSelectedSeasonalColor = 1;
+                } else {
+                    isSelectedSeasonalColor = 0;
+                }
             }
         });
         bodyTypeCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemCategoryActivity.isSelectedBodyType = true;
+                if(isSelectedBodyType == 0){
+                    isSelectedBodyType = 1;
+                } else {
+                    isSelectedBodyType = 0;
+                }
             }
         });
         styleCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemCategoryActivity.isSelectedStyle = true;
+                if(isSelectedStyle == 0){
+                    isSelectedStyle = 1;
+                } else {
+                    isSelectedStyle = 0;
+                }
             }
         });
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ItemCategoryActivity.isSelectedSeasonalColor = isSelectedSeasonalColor;
+                ItemCategoryActivity.isSelectedBodyType = isSelectedBodyType;
+                ItemCategoryActivity.isSelectedStyle = isSelectedStyle;
                 dismiss();
             }
         });
         resetAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ItemCategoryActivity.isSelectedSeasonalColor = false;
-                ItemCategoryActivity.isSelectedBodyType = false;
-                ItemCategoryActivity.isSelectedStyle = false;
+                ItemCategoryActivity.isSelectedSeasonalColor = 0;
+                ItemCategoryActivity.isSelectedBodyType = 0;
+                ItemCategoryActivity.isSelectedStyle = 0;
                 dismiss();
             }
         });
 
         return bottomSheetDialog;
     }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ((ItemCategoryActivity) getActivity()).loadItem();
+    }
+
 
 }

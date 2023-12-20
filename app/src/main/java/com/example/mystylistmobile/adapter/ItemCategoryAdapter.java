@@ -11,14 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
-import com.example.mystylistmobile.model.ItemCategory;
+import com.example.mystylistmobile.dto.response.ItemResponseDTO;
 
-import java.util.ArrayList;
 
-public class ItemCategoryAdapter extends ArrayAdapter<ItemCategory> {
+import java.util.List;
 
-    public ItemCategoryAdapter(@NonNull Context context, ArrayList<ItemCategory> itemCategories) {
+public class ItemCategoryAdapter extends ArrayAdapter<ItemResponseDTO> {
+
+    public ItemCategoryAdapter(@NonNull Context context, List<ItemResponseDTO> itemCategories) {
         super(context, 0, itemCategories);
     }
 
@@ -31,14 +33,18 @@ public class ItemCategoryAdapter extends ArrayAdapter<ItemCategory> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.itemcategory_item, parent, false);
         }
 
-        ItemCategory itemCategory = getItem(position);
+        ItemResponseDTO item = getItem(position);
         TextView categoryTxt = listItemView.findViewById(R.id.categoryTxt);
         TextView nameTxt = listItemView.findViewById(R.id.nameTxt);
-        ImageView itemCategoryImage = listItemView.findViewById(R.id.itemCategoryImage);
+        ImageView itemImage = listItemView.findViewById(R.id.itemCategoryImage);
 
-        nameTxt.setText(itemCategory.getName());
-        categoryTxt.setText(itemCategory.getCategory());
-        itemCategoryImage.setImageResource(itemCategory.getImage());
+        nameTxt.setText(item.getName());
+        categoryTxt.setText(item.getCategoryName());
+
+        Glide.with(getContext())
+                .load(item.getImage())
+                .error(R.drawable.icon_app)
+                .into(itemImage);
         return listItemView;
     }
 

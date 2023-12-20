@@ -55,28 +55,6 @@ public class OutfitClosetAdapter extends BaseAdapter {
             listItemView = LayoutInflater.from(context).inflate(R.layout.outfit_item, parent, false);
         }
 
-       /* LinearLayout itemsLayout = listItemView.findViewById(R.id.items_layout);
-        itemsLayout.removeAllViews();
-
-        UserOutfit userOutfit = (UserOutfit) getItem(position);
-        List<UserItem> userItems = userOutfit.getUserItems();
-
-        int widthInPixels = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 40, context.getResources().getDisplayMetrics());
-        int heightInPixels = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 250, context.getResources().getDisplayMetrics());
-
-        for ( UserItem item: userItems) {
-            ImageView imageView = new ImageView(context);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                    widthInPixels, heightInPixels));
-            Glide.with(context)
-                    .load(item.getImage())
-                    .error(R.drawable.icon_app)
-                    .into(imageView);
-            itemsLayout.addView(imageView);
-        }*/
-
         UserOutfit userOutfit = (UserOutfit) getItem(position);
         List<UserItem> userItems = userOutfit.getUserItems();
         ImageView imageView1 = listItemView.findViewById(R.id.imageView1);

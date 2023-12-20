@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserActivity extends AppCompatActivity {
+public class ManagementUserActivity extends AppCompatActivity {
 
     private RetrofitService retrofitService;
 
@@ -49,7 +49,7 @@ public class UserActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_user);
-        loadingAlert = new LoadingAlert(UserActivity.this);
+        loadingAlert = new LoadingAlert(ManagementUserActivity.this);
         loadingAlert.startAlertDialog();
         listviewUser = findViewById(R.id.listviewUser);
 

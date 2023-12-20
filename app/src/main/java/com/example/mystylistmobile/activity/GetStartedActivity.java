@@ -42,7 +42,7 @@ public class GetStartedActivity extends AppCompatActivity {
         adminBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GetStartedActivity.this, UserActivity.class);
+                Intent intent = new Intent(GetStartedActivity.this, ManagementUserActivity.class);
                 startActivity(intent);
             }
         });

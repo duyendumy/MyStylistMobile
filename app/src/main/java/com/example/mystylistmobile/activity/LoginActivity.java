@@ -78,6 +78,12 @@ public class LoginActivity extends AppCompatActivity {
             passwordEditText.setText(sessionManager.getPassword());
             saveLoginCheckBox.setChecked(true);
         }
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+            }
+        });
         loadingAlert = new LoadingAlert(LoginActivity.this);
         login();
     }
@@ -150,23 +156,4 @@ public class LoginActivity extends AppCompatActivity {
         return rolesList;
     }
 
-
-    /*public void getAllUsers(){
-        UserService userService = retrofitService.createService(UserService.class, SessionManager.getInstance(this).getUserToken());
-        userService.getAllUsers(0,4, "id").enqueue(new Callback<ResponseModel<UserPaging, ErrorDTO>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<UserPaging, ErrorDTO>> call, Response<ResponseModel<UserPaging, ErrorDTO>> response) {
-                if(response != null) {
-                    Toast.makeText(LoginActivity.this, "Get all user API" + response.toString(), Toast.LENGTH_SHORT).show();
-                    System.out.println("Get all user API" + response.body().toString());
-                }
-                //return null;
-            }
-            @Override
-            public void onFailure(Call<ResponseModel<UserPaging, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Get all users failed!",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });
-    }*/
 }

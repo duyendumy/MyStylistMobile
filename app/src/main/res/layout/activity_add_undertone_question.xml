@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.AddStyleTypeQuestionActivity">
+    tools:context=".activity.AddUndertoneQuestionActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Style Type Question"
+                android:text="Add Undertone Question"
                 android:textSize="25sp"
                 android:textAlignment="center"
                 android:textColor="@color/dark_purple"/>
@@ -47,63 +47,34 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:id="@+id/addClassicOption"
+                android:id="@+id/addCoolOption"
                 android:background="@drawable/purple_border"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Enter Classic Option"
+                android:hint="Enter Cool Option"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/dark_purple"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:id="@+id/addNaturalOption"
+                android:id="@+id/addWarmOption"
                 android:background="@drawable/purple_border"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Enter Natural Option"
+                android:hint="Enter Warm Option"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/dark_purple"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:id="@+id/addSexyOption"
+                android:id="@+id/addNeutralOption"
                 android:background="@drawable/purple_border"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Enter Sexy Option"
+                android:hint="Enter Neutral Option"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/dark_purple"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:id="@+id/addDramaticOption"
-                android:background="@drawable/purple_border"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="Enter Dramatic Option"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/dark_purple"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:id="@+id/addFeminineOption"
-                android:background="@drawable/purple_border"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="Enter Feminine Option"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/dark_purple"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:id="@+id/addElegantOption"
-                android:background="@drawable/purple_border"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="Enter Elegant Option"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/dark_purple"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -83,7 +83,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         categoryService.getSubCategoryOfCategory((long)-1).enqueue(new Callback<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>> call, Response<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>> response) {
-                if(response != null){
+                if(response.body() != null){
                     populateCategoryListView(response.body().getResponse());
                 }
             }

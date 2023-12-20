@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,6 +39,8 @@ public class UndertoneQuestionActivity extends AppCompatActivity {
 
     private LoadingAlert loadingAlert;
 
+    private Button addUndertoneQuestionBtn;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,14 @@ public class UndertoneQuestionActivity extends AppCompatActivity {
 
         listViewUndertoneQuestion = findViewById(R.id.listViewUndertoneQuestion);
         image_back = findViewById(R.id.image_back);
+        addUndertoneQuestionBtn = findViewById(R.id.addUndertoneQuestionBtn);
+
+        addUndertoneQuestionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddUndertoneQuestionActivity.class));
+            }
+        });
 
         image_back.setOnClickListener(new View.OnClickListener() {
             @Override

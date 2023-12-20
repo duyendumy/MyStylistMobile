@@ -3,32 +3,25 @@ package com.example.mystylistmobile.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
-import com.example.mystylistmobile.dto.response.SeasonalColorResponseDTO;
 import com.example.mystylistmobile.dto.response.UserResponseDTO;
 import com.example.mystylistmobile.helper.SessionManager;
-import com.example.mystylistmobile.model.Color;
 import com.example.mystylistmobile.retrofit.RetrofitService;
-import com.example.mystylistmobile.service.SeasonalColorService;
 import com.example.mystylistmobile.service.UserService;
-import com.facebook.shimmer.ShimmerFrameLayout;
+
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +34,7 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
 
     private TextView detailTitle, detailDesc;
 
-    private ImageView backImageView;
+    private ImageView backImageView, detailImage;
 
     private Button colorPaletteBtn;
 
@@ -49,6 +42,7 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
 
     private LoadingAlert loadingAlert;
 
+    private Long seasonalColorId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +61,9 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);
         backImageView = findViewById(R.id.image_back);
+        detailImage = findViewById(R.id.detailImage);
         colorPaletteBtn = findViewById(R.id.colorPaletteBtn);
+        seasonalColorId = (long)1;
         loadingAlert = new LoadingAlert(SeasonalColorAboutActivity.this);
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +76,7 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SeasonalColorAboutActivity.this, ColorPaletteActivity.class);
+                intent.putExtra("seasonalColorId", seasonalColorId);
                 startActivity(intent);
 
             }
@@ -101,6 +98,11 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
                     loadingAlert.closeDialog();
                     detailTitle.setText(userResponseDTO.getSeasonalColorName());
                     detailDesc.setText(userResponseDTO.getSeasonalColorDescription());
+                    seasonalColorId = userResponseDTO.getSeasonalColorId();
+                    Glide.with(getApplicationContext())
+                            .load(userResponseDTO.getSeasonalColorImage())
+                            .error(R.drawable.image_detail)
+                            .into(detailImage);
                 }
             }
 
@@ -111,26 +113,6 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
             }
         });
 
-        /*Long seasonalColorId = SessionManager.getInstance(this).getSeasonalColorId();
-        SeasonalColorService seasonalColorService = retrofitService.createService(SeasonalColorService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
-        seasonalColorService.getSeasonalColorById(seasonalColorId).enqueue(new Callback<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> call, Response<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> response) {
-                SeasonalColorResponseDTO seasonalColorResponseDTO = response.body().getResponse();
-                if(seasonalColorResponseDTO != null){
-                    loadingAlert.closeDialog();
-                    detailTitle.setText(seasonalColorResponseDTO.getName());
-                    detailDesc.setText(seasonalColorResponseDTO.getDescription());
-                }
-             //   return null;
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(SeasonalColorAboutActivity.this,"Get seasonal color information failed",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(SeasonalColorAboutActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });*/
     }
 
 

@@ -41,12 +41,12 @@ public class StyleTypeQuestionAdapter extends ArrayAdapter<StyleQuestion> {
 
 
         questionTxt.setText(styleQuestion.getQuestion());
-        classicOption.setText("Cool option: " + styleQuestion.getClassicOption());
-        naturalOption.setText("Warm option: "+ styleQuestion.getNaturalOption());
-        sexyOption.setText("Warm option: "+ styleQuestion.getSexyOption());
-        dramaticOption.setText("Warm option: "+ styleQuestion.getDramaticOption());
-        feminineOption.setText("Warm option: "+ styleQuestion.getFeminineOption());
-        elegantOption.setText("Warm option: "+ styleQuestion.getElegantOption());
+        classicOption.setText("Classic option: " + styleQuestion.getClassicOption());
+        naturalOption.setText("Natural option: "+ styleQuestion.getNaturalOption());
+        sexyOption.setText("Sexy option: "+ styleQuestion.getSexyOption());
+        dramaticOption.setText("Dramatic option: "+ styleQuestion.getDramaticOption());
+        feminineOption.setText("Feminine option: "+ styleQuestion.getFeminineOption());
+        elegantOption.setText("Elegant option: "+ styleQuestion.getElegantOption());
 
         return listItemView;
     }

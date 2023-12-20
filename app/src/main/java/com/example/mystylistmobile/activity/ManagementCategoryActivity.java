@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -102,7 +101,7 @@ public class ManagementCategoryActivity extends AppCompatActivity {
         this.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.bottom_user:
-                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ManagementUserActivity.class));
                     overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
                     finish();
                     return true;

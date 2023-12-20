@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,6 +41,8 @@ public class ContrastQuestionActivity extends AppCompatActivity {
 
     private LoadingAlert loadingAlert;
 
+    private Button addContrastQuestionBtn;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,14 @@ public class ContrastQuestionActivity extends AppCompatActivity {
 
         listViewContrastQuestion = findViewById(R.id.listViewContrastQuestion);
         image_back = findViewById(R.id.image_back);
+        addContrastQuestionBtn = findViewById(R.id.addContrastQuestionBtn);
+
+        addContrastQuestionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddContrastQuestionActivity.class));
+            }
+        });
 
         image_back.setOnClickListener(new View.OnClickListener() {
             @Override

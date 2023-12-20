@@ -7,10 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class SeasonalColorResponseDTO {
 
     @SerializedName("id")
@@ -24,6 +20,16 @@ public class SeasonalColorResponseDTO {
 
     @SerializedName("colorPalette")
     private String colorPalette;
+
+    public SeasonalColorResponseDTO() {
+    }
+
+    public SeasonalColorResponseDTO(Long id, String name, String description, String colorPalette) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.colorPalette = colorPalette;
+    }
 
     public Long getId() {
         return id;

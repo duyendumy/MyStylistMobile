@@ -17,17 +17,20 @@ public class UserResponseDTO {
 
     private String roles;
     private String seasonalColorName;
-
     private String seasonalColorDescription;
+
+    private String seasonalColorImage;
     private Long seasonalColorId;
     private String bodyShapeName;
     private Long bodyShapeId;
-
     private String bodyShapeDescription;
+
+    private String bodyShapeImage;
     private String styleTypeName;
     private Long styleTypeId;
-
     private String styleTypeDescription;
+
+    private String styleTypeImage;
 
     public String getRoles() {
         return roles;
@@ -131,5 +134,29 @@ public class UserResponseDTO {
 
     public void setStyleTypeId(Long styleTypeId) {
         this.styleTypeId = styleTypeId;
+    }
+
+    public String getSeasonalColorImage() {
+        return seasonalColorImage;
+    }
+
+    public void setSeasonalColorImage(String seasonalColorImage) {
+        this.seasonalColorImage = seasonalColorImage;
+    }
+
+    public String getBodyShapeImage() {
+        return bodyShapeImage;
+    }
+
+    public void setBodyShapeImage(String bodyShapeImage) {
+        this.bodyShapeImage = bodyShapeImage;
+    }
+
+    public String getStyleTypeImage() {
+        return styleTypeImage;
+    }
+
+    public void setStyleTypeImage(String styleTypeImage) {
+        this.styleTypeImage = styleTypeImage;
     }
 }

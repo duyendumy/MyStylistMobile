@@ -15,6 +15,15 @@
         android:theme="@style/Theme.MyStylistMobile"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AddContrastQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddUndertoneQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.AddStyleTypeQuestionActivity"
             android:exported="false" />
         <activity
@@ -39,7 +48,7 @@
             android:name=".activity.ManagementCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.UserActivity"
+            android:name=".activity.ManagementUserActivity"
             android:exported="false" />
         <activity
             android:name=".activity.HowToStyleActivity"

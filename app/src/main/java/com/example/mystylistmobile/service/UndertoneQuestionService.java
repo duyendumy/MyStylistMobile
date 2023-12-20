@@ -1,8 +1,8 @@
 package com.example.mystylistmobile.service;
 
+import com.example.mystylistmobile.dto.AddUndertoneQuestionDTO;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
-import com.example.mystylistmobile.model.StyleQuestion;
 import com.example.mystylistmobile.model.UndertoneQuestion;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface UndertoneQuestionService {
     Call<ResponseModel<List<UndertoneQuestion>, ErrorDTO>> getAllUndertoneQuestions();
 
     @POST("/my-stylist/undertone-question")
-    Call<ResponseModel<UndertoneQuestion, ErrorDTO>> getAllUndertoneQuestions(@Body UndertoneQuestion undertoneQuestion);
+    Call<ResponseModel<UndertoneQuestion, ErrorDTO>> addUndertoneQuestions(@Body AddUndertoneQuestionDTO undertoneQuestionDTO);
 }

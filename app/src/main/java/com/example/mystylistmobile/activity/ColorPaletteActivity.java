@@ -9,18 +9,38 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.adapter.ColorAdapter;
-import com.example.mystylistmobile.model.Color;
+import com.example.mystylistmobile.dto.response.ErrorDTO;
+import com.example.mystylistmobile.dto.response.ResponseModel;
+import com.example.mystylistmobile.dto.response.SeasonalColorResponseDTO;
+import com.example.mystylistmobile.helper.SessionManager;
+import com.example.mystylistmobile.retrofit.RetrofitService;
+import com.example.mystylistmobile.service.SeasonalColorService;
 
-import java.util.ArrayList;
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ColorPaletteActivity extends AppCompatActivity {
 
     private GridView colorPaletteGridView;
 
     private ImageView backImageView;
+
+    private RetrofitService retrofitService;
+
+    private LoadingAlert loadingAlert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +55,10 @@ public class ColorPaletteActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_color_palette);
-
+        loadingAlert = new LoadingAlert(ColorPaletteActivity.this);
         colorPaletteGridView = findViewById(R.id.gridView);
-        ArrayList<Color> colors = new ArrayList<Color>();
+        loadColorPalette();
 
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-        colors.add(new Color("#f6788", R.drawable.icon_app));
-        colors.add(new Color("#78677", R.drawable.avatar));
-
-        ColorAdapter colorAdapter = new ColorAdapter(this, colors);
-        colorPaletteGridView.setAdapter(colorAdapter);
 
         backImageView = findViewById(R.id.image_back);
         backImageView.setOnClickListener(new View.OnClickListener() {
@@ -70,5 +69,33 @@ public class ColorPaletteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void  populateListView(List<String> colors){
+        ColorAdapter colorAdapter = new ColorAdapter(this, colors);
+        colorPaletteGridView.setAdapter(colorAdapter);
+    }
+
+    public void loadColorPalette(){
+        loadingAlert.startAlertDialog();
+        Intent intent = getIntent();
+        Long seasonalColorId = intent.getLongExtra("seasonalColorId", 1L);
+        SeasonalColorService seasonalColorService = retrofitService.createService(SeasonalColorService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
+        seasonalColorService.getSeasonalColorById(seasonalColorId).enqueue(new Callback<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> call, Response<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> response) {
+               if(response.body()!= null) {
+                   loadingAlert.closeDialog();
+                   List<String> colors = Arrays.asList(response.body().getResponse().getColorPalette().split(","));
+                   populateListView(colors);
+               }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> call, Throwable t) {
+                Toast.makeText(ColorPaletteActivity.this,"Get color information failed",Toast.LENGTH_SHORT).show();
+                Logger.getLogger(ColorPaletteActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
+            }
+        });
     }
 }

@@ -1,44 +1,28 @@
-package com.example.mystylistmobile.dto.response;
+package com.example.mystylistmobile.dto;
 
-public class ItemResponseDTO {
-    private Long id;
+public class AddNewItemDTO {
     private String name;
+
     private String image;
+
     private Long categoryId;
 
-    private String categoryName;
     private Long bodyShapeId;
+
     private Long seasonalColorId;
+
     private Long styleTypeId;
 
-    public ItemResponseDTO() {
+    public AddNewItemDTO() {
     }
 
-    public ItemResponseDTO(Long id, String name, String image, Long categoryId, String categoryName, Long bodyShapeId, Long seasonalColorId, Long styleTypeId) {
-        this.id = id;
+    public AddNewItemDTO(String name, String image, Long categoryId, Long bodyShapeId, Long seasonalColorId, Long styleTypeId) {
         this.name = name;
         this.image = image;
         this.categoryId = categoryId;
-        this.categoryName = categoryName;
         this.bodyShapeId = bodyShapeId;
         this.seasonalColorId = seasonalColorId;
         this.styleTypeId = styleTypeId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

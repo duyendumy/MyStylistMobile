@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.response.BodyShapeResponseDTO;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class BodyTypeAboutActivity extends AppCompatActivity {
 
-    private ImageView backImageView;
+    private ImageView backImageView, detailImage;
     private TextView detailTitle, detailDesc;
     private RetrofitService retrofitService;
 
@@ -53,6 +54,7 @@ public class BodyTypeAboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_body_type_about);
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);
+        detailImage = findViewById(R.id.detailImage);
         backImageView = findViewById(R.id.image_back);
         loadingAlert = new LoadingAlert(BodyTypeAboutActivity.this);
         backImageView.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +79,10 @@ public class BodyTypeAboutActivity extends AppCompatActivity {
                     loadingAlert.closeDialog();
                     detailTitle.setText(userResponseDTO.getBodyShapeName());
                     detailDesc.setText(userResponseDTO.getBodyShapeDescription());
+                    Glide.with(getApplicationContext())
+                            .load(userResponseDTO.getBodyShapeImage())
+                            .error(R.drawable.image_detail)
+                            .into(detailImage);
                 }
             }
 
@@ -87,26 +93,5 @@ public class BodyTypeAboutActivity extends AppCompatActivity {
             }
         });
 
-        /*Long bodyShapeId = SessionManager.getInstance(this).getBodyShapeId();
-        BodyShapeService bodyShapeService = retrofitService.createService(BodyShapeService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
-        bodyShapeService.getBodyShapeById(bodyShapeId).enqueue(new Callback<ResponseModel<BodyShapeResponseDTO, ErrorDTO>>() {
-
-            @Override
-            public void onResponse(Call<ResponseModel<BodyShapeResponseDTO, ErrorDTO>> call, Response<ResponseModel<BodyShapeResponseDTO, ErrorDTO>> response) {
-                BodyShapeResponseDTO bodyShapeResponseDTO = response.body().getResponse();
-                if(bodyShapeResponseDTO != null){
-                    loadingAlert.closeDialog();
-                    detailTitle.setText(bodyShapeResponseDTO.getName());
-                    detailDesc.setText(bodyShapeResponseDTO.getDescription());
-                }
-        //        return null;
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<BodyShapeResponseDTO, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(BodyTypeAboutActivity.this,"Get body type information failed",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(BodyTypeAboutActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });*/
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
@@ -30,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FashionStyleAboutActivity extends AppCompatActivity {
-    private ImageView backImageView;
+    private ImageView backImageView, detailImage;
 
     private TextView detailTitle, detailDesc;
 
@@ -54,6 +55,7 @@ public class FashionStyleAboutActivity extends AppCompatActivity {
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);
         backImageView = findViewById(R.id.image_back);
+        detailImage = findViewById(R.id.detailImage);
         loadingAlert = new LoadingAlert(FashionStyleAboutActivity.this);
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,10 @@ public class FashionStyleAboutActivity extends AppCompatActivity {
                     loadingAlert.closeDialog();
                     detailTitle.setText(userResponseDTO.getStyleTypeName());
                     detailDesc.setText(userResponseDTO.getStyleTypeDescription());
+                    Glide.with(getApplicationContext())
+                            .load(userResponseDTO.getStyleTypeImage())
+                            .error(R.drawable.image_detail)
+                            .into(detailImage);
                 }
             }
 

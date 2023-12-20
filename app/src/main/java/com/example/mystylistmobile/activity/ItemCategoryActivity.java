@@ -2,6 +2,7 @@ package com.example.mystylistmobile.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,26 @@ import android.widget.ImageView;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.adapter.ItemCategoryAdapter;
+import com.example.mystylistmobile.dto.FilterDTO;
+import com.example.mystylistmobile.dto.response.ErrorDTO;
+import com.example.mystylistmobile.dto.response.ItemResponseDTO;
+import com.example.mystylistmobile.dto.response.ResponseModel;
 import com.example.mystylistmobile.fragment.BottomSheetFragment;
+import com.example.mystylistmobile.helper.DataManager;
+import com.example.mystylistmobile.helper.SessionManager;
 import com.example.mystylistmobile.model.ItemCategory;
 import com.example.mystylistmobile.retrofit.RetrofitService;
+import com.example.mystylistmobile.service.CategoryService;
+import com.example.mystylistmobile.service.ItemService;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemCategoryActivity extends AppCompatActivity {
 
@@ -30,20 +46,34 @@ public class ItemCategoryActivity extends AppCompatActivity {
 
     private RetrofitService retrofitService;
 
-    public static boolean isSelectedSeasonalColor = true;
-    public static boolean isSelectedBodyType = true;
-    public static boolean isSelectedStyle = true;
+    private LoadingAlert loadingAlert;
 
-    public void setSelectedSeasonalColor(boolean selectedSeasonalColor) {
-        isSelectedSeasonalColor = selectedSeasonalColor;
+    public static int isSelectedSeasonalColor;
+    public static int isSelectedBodyType;
+    public static int isSelectedStyle;
+
+    public CheckBox getSelectedSeasonalColor() {
+        return selectedSeasonalColor;
     }
 
-    public void setSelectedBodyType(boolean selectedBodyType) {
-        isSelectedBodyType = selectedBodyType;
+    public void setSelectedSeasonalColor(CheckBox selectedSeasonalColor) {
+        this.selectedSeasonalColor = selectedSeasonalColor;
     }
 
-    public void setSelectedStyle(boolean selectedStyle) {
-        isSelectedStyle = selectedStyle;
+    public CheckBox getSelectedBodyType() {
+        return selectedBodyType;
+    }
+
+    public void setSelectedBodyType(CheckBox selectedBodyType) {
+        this.selectedBodyType = selectedBodyType;
+    }
+
+    public CheckBox getSelectedStyleType() {
+        return selectedStyleType;
+    }
+
+    public void setSelectedStyleType(CheckBox selectedStyleType) {
+        this.selectedStyleType = selectedStyleType;
     }
 
     @Override
@@ -59,6 +89,10 @@ public class ItemCategoryActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_item_category);
+        isSelectedSeasonalColor = 1;
+        isSelectedBodyType = 1;
+        isSelectedStyle = 1;
+        loadingAlert = new LoadingAlert(ItemCategoryActivity.this);
         itemCategoryGridView = findViewById(R.id.gridView);
         filterButton = findViewById(R.id.filterButton);
         backImageView = findViewById(R.id.image_back);
@@ -70,57 +104,43 @@ public class ItemCategoryActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-        itemCategories.add(new ItemCategory("Top","Red valentino",  R.drawable.icon_app));
-
-        ItemCategoryAdapter itemCategoryAdapter = new ItemCategoryAdapter(this, itemCategories);
-        itemCategoryGridView.setAdapter(itemCategoryAdapter);
-
+        loadItem();
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BottomSheetFragment  bottomSheetFragment = new BottomSheetFragment();
                 bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-
             }
         });
     }
 
-    /*public void populateListView(ArrayList<ItemCategoryResponseDTO> itemCategories){
+    public void loadItem(){
+        loadingAlert.startAlertDialog();
+        Long parent = DataManager.getInstance().getParentCategoryId();
+        FilterDTO filterDTO = new FilterDTO();
+        filterDTO.setFilterByBodyShape(isSelectedBodyType);
+        filterDTO.setFilterBySeasonalColor(isSelectedSeasonalColor);
+        filterDTO.setFilterByStyleType(isSelectedStyle);
+        ItemService itemService = retrofitService.createService(ItemService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
+        itemService.suggestItemsOfParentCategory(parent, filterDTO).enqueue(new Callback<ResponseModel<List<ItemResponseDTO>, ErrorDTO>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<List<ItemResponseDTO>, ErrorDTO>> call, Response<ResponseModel<List<ItemResponseDTO>, ErrorDTO>> response) {
+                if(response != null){
+                    loadingAlert.closeDialog();
+                    populateListView(response.body().getResponse());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<List<ItemResponseDTO>, ErrorDTO>> call, Throwable t) {
+
+            }
+        });
+    }
+    public void populateListView(List<ItemResponseDTO> itemCategories){
         ItemCategoryAdapter itemCategoryAdapter = new ItemCategoryAdapter(this,itemCategories);
         itemCategoryGridView.setAdapter(itemCategoryAdapter);
 
     }
 
-    public void loadParentCategory(){
-        ItemCategoryService itemCategoryService = retrofitService.createService(ItemCategoryService.class, SessionManager.getInstance(this).getUserToken());
-        itemCategoryService.getAllItemCategory((long) -1, 0, 8, "id").enqueue(new Callback<ResponseModel<ItemCategoryPaging, ErrorDTO>>() {
-
-            @Override
-            public void onResponse(Call<ResponseModel<ItemCategoryPaging, ErrorDTO>> call, Response<ResponseModel<ItemCategoryPaging, ErrorDTO>> response) {
-                if(response != null){
-
-                    populateListView(response.body().getResponse().getCategories());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<ItemCategoryPaging, ErrorDTO>> call, Throwable t) {
-                Toast.makeText(ItemCategoryActivity.this,"Get all item categories failed!",Toast.LENGTH_SHORT).show();
-                Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
-            }
-        });
-
-    }*/
 }

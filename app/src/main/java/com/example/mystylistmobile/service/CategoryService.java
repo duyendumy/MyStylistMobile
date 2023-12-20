@@ -18,9 +18,6 @@ import retrofit2.http.Path;
 
 public interface CategoryService {
 
-/*    @GET("/my-stylist/categories")
-    Call<ResponseModel<CategoryPaging, ErrorDTO>> getAllCategory(@Query("parent") Long parent, @Query("pageNumber") int pageNumber, @Query("pageSize") int pageSize, @Query("sortField") String sortField);*/
-
     @GET("/my-stylist/categories")
     Call<ResponseModel<List<CategoryResponseDTO>, ErrorDTO>> getAllCategory();
 
