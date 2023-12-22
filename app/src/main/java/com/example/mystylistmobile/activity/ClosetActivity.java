@@ -68,6 +68,7 @@ public class ClosetActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_closet);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ClosetActivity.this);
         itemClosetGridView = findViewById(R.id.gridViewMyItems);
         outfitClosetGridView = findViewById(R.id.gridViewTodayOutfits);

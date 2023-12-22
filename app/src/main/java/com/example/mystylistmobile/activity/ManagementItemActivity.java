@@ -57,7 +57,7 @@ public class ManagementItemActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_management_item);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ManagementItemActivity.this);
         loadingAlert.startAlertDialog();
         listviewItems = findViewById(R.id.listviewItems);

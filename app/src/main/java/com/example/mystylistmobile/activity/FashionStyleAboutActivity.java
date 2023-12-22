@@ -52,6 +52,7 @@ public class FashionStyleAboutActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_fashion_style_about);
+        retrofitService = new RetrofitService();
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);
         backImageView = findViewById(R.id.image_back);

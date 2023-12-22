@@ -62,7 +62,7 @@ public class FashionStyleQuizActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_fashion_style_quiz);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(FashionStyleQuizActivity.this);
         loadingAlert.startAlertDialog();
 
@@ -225,8 +225,8 @@ public class FashionStyleQuizActivity extends AppCompatActivity {
                     break;
 
             }
+            saveAttemptQuiz(result);
         }
-        saveAttemptQuiz(result);
     }
 
     public void saveAttemptQuiz(String result){

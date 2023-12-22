@@ -12,8 +12,10 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface UserOutfitService {
 
@@ -25,4 +27,7 @@ public interface UserOutfitService {
 
     @POST("/my-stylist/user-outfits/suggest")
     Call<ResponseModel<UserOutfit, ErrorDTO>> suggestUserOutfit(@Body AddUserItemDTO userItemDTO);
+
+    @DELETE("/my-stylist/user-outfits/{userOutfitId}")
+    Call<Void> deleteUserOutfit(@Path("userOutfitId") Long userOutfitId);
 }

@@ -103,6 +103,7 @@ public class AddItemActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_item);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddItemActivity.this);
 
         addCategory = findViewById(R.id.addCategory);

@@ -52,6 +52,7 @@ public class BodyTypeAboutActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_body_type_about);
+        retrofitService = new RetrofitService();
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);
         detailImage = findViewById(R.id.detailImage);

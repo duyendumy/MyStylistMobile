@@ -5,7 +5,7 @@ import com.example.mystylistmobile.dto.SubmitStyleTypeQuizDTO;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
 import com.example.mystylistmobile.model.AttemptQuiz;
-import com.example.mystylistmobile.model.UndertoneQuestion;
+
 
 import retrofit2.Call;
 import retrofit2.http.Body;

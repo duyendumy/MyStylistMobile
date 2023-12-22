@@ -58,7 +58,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_category);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddCategoryActivity.this);
         spinnerCategory = findViewById(R.id.addCategory);
         addName = findViewById(R.id.addName);

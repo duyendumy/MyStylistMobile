@@ -46,6 +46,7 @@ public class AddContrastQuestionActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_contrast_question);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddContrastQuestionActivity.this);
 
         addQuestion = findViewById(R.id.addQuestion);

@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.adapter.UserAdapter;
@@ -35,6 +38,10 @@ public class ManagementUserActivity extends AppCompatActivity {
 
     private LoadingAlert loadingAlert;
 
+    private ImageView logOutImage;
+
+    private SessionManager sessionManager;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +56,11 @@ public class ManagementUserActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_user);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ManagementUserActivity.this);
         loadingAlert.startAlertDialog();
         listviewUser = findViewById(R.id.listviewUser);
+        logOutImage = findViewById(R.id.logOutImage);
 
 
         UserService userService = retrofitService.createService(UserService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
@@ -65,6 +74,14 @@ public class ManagementUserActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<List<UserResponseDTO>, ErrorDTO>> call, Throwable t) {
 
+            }
+        });
+        logOutImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ManagementUserActivity.this, "Logout",Toast.LENGTH_SHORT).show();
+                sessionManager.getInstance(getApplicationContext()).logout();
+                startActivity(new Intent(ManagementUserActivity.this, LoginActivity.class));
             }
         });
 

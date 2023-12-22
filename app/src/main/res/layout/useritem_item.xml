@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             android:id="@+id/itemCategoryImage"/>
         <ImageView
-            android:id="@+id/filterButton"
+            android:id="@+id/deleteImage"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:padding="10dp"

@@ -58,6 +58,7 @@ public class CategoryActivity extends AppCompatActivity implements OnClickParent
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_category);
+        retrofitService = new RetrofitService();
         categoryListView = findViewById(R.id.listview);
         loadingAlert = new LoadingAlert(CategoryActivity.this);
 

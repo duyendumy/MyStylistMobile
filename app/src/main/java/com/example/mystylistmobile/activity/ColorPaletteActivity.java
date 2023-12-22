@@ -55,6 +55,7 @@ public class ColorPaletteActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_color_palette);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ColorPaletteActivity.this);
         colorPaletteGridView = findViewById(R.id.gridView);
         loadColorPalette();

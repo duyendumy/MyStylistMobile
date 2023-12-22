@@ -45,6 +45,7 @@ public class AddStyleTypeQuestionActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_style_type_question);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddStyleTypeQuestionActivity.this);
 
         addQuestion = findViewById(R.id.addQuestion);

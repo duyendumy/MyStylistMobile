@@ -47,6 +47,7 @@ public class AddUndertoneQuestionActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_undertone_question);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddUndertoneQuestionActivity.this);
 
         addQuestion = findViewById(R.id.addQuestion);

@@ -55,7 +55,7 @@ public class ManagementStyleTypeQuestion extends AppCompatActivity {
         );
         getSupportActionBar().hide();
         setContentView(R.layout.activity_management_style_type_question);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ManagementStyleTypeQuestion.this);
         loadingAlert.startAlertDialog();
 

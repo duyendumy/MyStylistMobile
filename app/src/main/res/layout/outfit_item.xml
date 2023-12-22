@@ -65,7 +65,20 @@
                     android:src="@drawable/ic_add_item" />
             </LinearLayout>
         </LinearLayout>
-
+        <ImageView
+            android:id="@+id/deleteImage"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/background_circle_btn"
+            app:srcCompat="@drawable/ic_trash_can"
+            android:layout_alignTop="@id/itemCategoryImage"
+            android:layout_alignBottom="@id/itemCategoryImage"
+            android:layout_alignLeft="@id/itemCategoryImage"
+            android:layout_alignRight="@id/itemCategoryImage"
+            android:scaleType="fitXY" />
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

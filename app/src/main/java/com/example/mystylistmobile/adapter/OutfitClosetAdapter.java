@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.mystylistmobile.R;
+import com.example.mystylistmobile.helper.OnClickUserItemToDelete;
 import com.example.mystylistmobile.model.User;
 import com.example.mystylistmobile.model.UserItem;
 import com.example.mystylistmobile.model.UserOutfit;
@@ -25,6 +26,11 @@ public class OutfitClosetAdapter extends BaseAdapter {
     private Context context;
     private List<UserOutfit> userOutfits;
 
+    private OnClickUserItemToDelete onClickOutfitToDelete;
+
+    public void setOnClickOutfitToDelete(OnClickUserItemToDelete onClickOutfitToDelete) {
+        this.onClickOutfitToDelete = onClickOutfitToDelete;
+    }
 
     public OutfitClosetAdapter(Context context, List<UserOutfit> userOutfits) {
         this.userOutfits = userOutfits;
@@ -61,6 +67,15 @@ public class OutfitClosetAdapter extends BaseAdapter {
         ImageView imageView2 = listItemView.findViewById(R.id.imageView2);
         ImageView imageView3 = listItemView.findViewById(R.id.imageView3);
         ImageView imageView4 = listItemView.findViewById(R.id.imageView4);
+        ImageView deleteImage = listItemView.findViewById(R.id.deleteImage);
+        deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onClickOutfitToDelete != null){
+                    onClickOutfitToDelete.onClickUserItemToDelete(position);
+                }
+            }
+        });
 
         for(int i = 0; i < userItems.size(); i++){
             switch(i){

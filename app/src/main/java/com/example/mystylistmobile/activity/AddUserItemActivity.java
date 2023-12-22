@@ -82,6 +82,7 @@ public class AddUserItemActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_add_user_item);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(AddUserItemActivity.this);
         addName = findViewById(R.id.addName);
         addImage = findViewById(R.id.addImage);

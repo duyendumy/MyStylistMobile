@@ -1,10 +1,8 @@
 package com.example.mystylistmobile.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,22 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.auth.LoginRequest;
-import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.RegisterV2ResponseDTO;
-import com.example.mystylistmobile.dto.response.ResponseModel;
 import com.example.mystylistmobile.dto.response.TokenDTO;
-import com.example.mystylistmobile.dto.response.UserPaging;
 import com.example.mystylistmobile.dto.response.UserResponseDTO;
 import com.example.mystylistmobile.helper.SessionManager;
 import com.example.mystylistmobile.service.AuthService;
 import com.example.mystylistmobile.retrofit.RetrofitService;
-import com.example.mystylistmobile.service.UserService;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private RetrofitService retrofitService;
     private EditText emailEditText, passwordEditText;
     private Button loginBtn;
-    private TextView signUpTextView;
+    private TextView signUpTextView, forgotPasswordTextView;
     private LoadingAlert loadingAlert;
     private CheckBox saveLoginCheckBox;
 
@@ -66,11 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_login);
+        retrofitService = new RetrofitService();
         emailEditText = findViewById(R.id.inputEmail);
         passwordEditText = findViewById(R.id.inputPassword);
         loginBtn = findViewById(R.id.logInBtn);
         signUpTextView = findViewById(R.id.signUpTextView);
         saveLoginCheckBox = findViewById(R.id.saveLoginCheckBox);
+        forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
         sessionManager = new SessionManager(this);
         saveLogin = sessionManager.getSaveLogin();
         if(saveLogin == true){
@@ -78,6 +73,12 @@ public class LoginActivity extends AppCompatActivity {
             passwordEditText.setText(sessionManager.getPassword());
             saveLoginCheckBox.setChecked(true);
         }
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class));
+            }
+        });
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,9 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             loadingAlert.startAlertDialog();
-
-            retrofitService = new RetrofitService();
-
             LoginRequest loginRequest = new LoginRequest(email, password);
             AuthService authService = retrofitService.createService(AuthService.class);
             authService.login(loginRequest).enqueue(new Callback<RegisterV2ResponseDTO>() {
@@ -127,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                         TokenDTO refreshToken = loginResponse.getTokens().getRefresh();
                         UserResponseDTO userResponseDTO = loginResponse.getUser();
                         sessionManager.saveUserInfo(accessToken.getToken(), refreshToken.getToken(), userResponseDTO.getName(), userResponseDTO.getSeasonalColorName(),userResponseDTO.getSeasonalColorId(), userResponseDTO.getStyleTypeName(), userResponseDTO.getStyleTypeId(), userResponseDTO.getBodyShapeName(), userResponseDTO.getBodyShapeId());
-                        Toast.makeText(LoginActivity.this, "Login successfully" , Toast.LENGTH_SHORT).show();
                         List<String> roles = parseRoles(loginResponse.getUser().getRoles());
                         if(roles.contains("ROLE_ADMIN")){
                             Intent intent = new Intent(LoginActivity.this, GetStartedActivity.class);

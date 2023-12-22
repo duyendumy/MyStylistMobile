@@ -1,6 +1,7 @@
 package com.example.mystylistmobile.dto;
 
 public class UpdateUserDTO {
+
     private Float bust;
 
     private Float waist;
@@ -10,6 +11,17 @@ public class UpdateUserDTO {
     private Float hip;
 
     private String bodyShape;
+
+    @Override
+    public String toString() {
+        return "UpdateUserDTO{" +
+                "bust=" + bust +
+                ", waist=" + waist +
+                ", highHip=" + highHip +
+                ", hip=" + hip +
+                ", bodyShape='" + bodyShape + '\'' +
+                '}';
+    }
 
     public UpdateUserDTO() {
     }

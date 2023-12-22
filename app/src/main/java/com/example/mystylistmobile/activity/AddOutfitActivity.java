@@ -58,6 +58,7 @@ public class AddOutfitActivity extends AppCompatActivity implements OnCheckboxSt
         );
         getSupportActionBar().hide();
         setContentView(R.layout.activity_add_outfit);
+        retrofitService = new RetrofitService();
 
         loadingAlert = new LoadingAlert(AddOutfitActivity.this);
         itemClosetGridView = findViewById(R.id.gridViewMyItems);

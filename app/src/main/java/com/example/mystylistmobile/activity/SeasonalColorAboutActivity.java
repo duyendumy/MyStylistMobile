@@ -56,7 +56,7 @@ public class SeasonalColorAboutActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_seasonal_color_about);
-
+        retrofitService = new RetrofitService();
 
         detailTitle = findViewById(R.id.detailTitle);
         detailDesc = findViewById(R.id.detailDesc);

@@ -56,7 +56,7 @@ public class ManagementCategoryActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_management_category);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(ManagementCategoryActivity.this);
         loadingAlert.startAlertDialog();
 

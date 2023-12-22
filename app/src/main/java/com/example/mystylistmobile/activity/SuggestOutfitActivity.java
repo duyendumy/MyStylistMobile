@@ -86,7 +86,7 @@ public class SuggestOutfitActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_suggest_outfit);
-
+        retrofitService = new RetrofitService();
 
         loadingAlert = new LoadingAlert(SuggestOutfitActivity.this);
         addName = findViewById(R.id.addName);

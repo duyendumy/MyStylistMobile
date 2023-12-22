@@ -68,7 +68,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_seasonal_color_quiz);
-
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(SeasonalColorQuizActivity.this);
         loadingAlert.startAlertDialog();
 

@@ -23,7 +23,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:id="@+id/profileImg"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Name"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/profileImg"
                 app:layout_constraintStart_toStartOf="@id/profileImg"
@@ -85,7 +85,7 @@
                         android:text="Name"
                         android:textStyle="bold"
                         android:textColor="@color/dark_purple"
-                        android:textSize="18sp"/>
+                        android:textSize="15sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                         android:layout_weight="1"
                         android:textAlignment="viewEnd"
                         android:textColor="@color/blue_grey"
-                        android:textSize="18sp"/>
+                        android:textSize="15sp"/>
 
                 </LinearLayout>
 
@@ -121,7 +121,7 @@
                         android:text="Email"
                         android:textStyle="bold"
                         android:textColor="@color/dark_purple"
-                        android:textSize="18sp"/>
+                        android:textSize="15sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                         android:layout_weight="1"
                         android:textAlignment="viewEnd"
                         android:textColor="@color/blue_grey"
-                        android:textSize="18sp"/>
+                        android:textSize="15sp"/>
 
                 </LinearLayout>
 
@@ -156,11 +156,41 @@
                         android:layout_weight="1"
                         android:textStyle="bold"
                         android:textColor="@color/dark_purple"
-                        android:textSize="18sp"/>
+                        android:textSize="15sp"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/icArrow"
+                        android:id="@+id/resetPasswordImage"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:alpha="0.5"
+                    android:background="@color/dark_purple"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/logOutTxt"
+                        android:text="Log out"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="15sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/logOutImage"
                         android:src="@drawable/ic_arrow_forward"
                         android:layout_weight="1" />
 

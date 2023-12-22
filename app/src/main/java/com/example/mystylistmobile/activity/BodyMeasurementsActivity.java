@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +21,7 @@ import com.example.mystylistmobile.dto.response.UserResponseDTO;
 import com.example.mystylistmobile.helper.SessionManager;
 import com.example.mystylistmobile.retrofit.RetrofitService;
 import com.example.mystylistmobile.service.BodyMeasurementService;
-import com.example.mystylistmobile.service.UndertoneQuestionService;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +34,10 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
     private LoadingAlert loadingAlert;
     private EditText inputBust, inputWaist, inputHighHip, inputHip;
 
+  /*  private Float fInputBust, fInputWaist, fInputHighHip, fInputHip;*/
+
     private Button cancelButton, saveButton;
+
 
 
     @Override
@@ -49,6 +53,7 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_body_measurements);
+        retrofitService = new RetrofitService();
         loadingAlert = new LoadingAlert(BodyMeasurementsActivity.this);
 
         inputBust = findViewById(R.id.inputBust);
@@ -92,15 +97,17 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
             inputHip.setError("Please enter your hip");
             return;
         }
-        Float userBust = Float.valueOf(inputBust.getText().toString());
-        Float userWaist = Float.valueOf(inputWaist.getText().toString());
-        Float userHighHip = Float.valueOf(inputHighHip.getText().toString());
-        Float userHip = Float.valueOf(inputHip.getText().toString());
-        Float minusOfBustHip = userBust - userHip;
-        Float minusOFBustWaist = userBust - userWaist;
-        Float minusOfHipWaist = userHip - userWaist;
-        Float minusOfHighHipWaist = userHighHip - userWaist;
-        Float minusOfHipBust= userHip - userBust;
+
+        Float fInputBust = Float.valueOf(inputBust.getText().toString());
+        Float fInputWaist = Float.valueOf(inputWaist.getText().toString());
+        Float fInputHighHip = Float.valueOf(inputHighHip.getText().toString());
+        Float fInputHip = Float.valueOf(inputHip.getText().toString());
+
+        Float minusOfBustHip = fInputBust - fInputHip;
+        Float minusOFBustWaist = fInputBust - fInputWaist;
+        Float minusOfHipWaist = fInputHip - fInputWaist;
+        Float minusOfHighHipWaist = fInputHighHip - fInputWaist;
+        Float minusOfHipBust= fInputHip - fInputBust;
         String result = "";
         if(minusOfBustHip <= 1 && minusOfHipBust <= 3.6 && minusOFBustWaist >= 9 && minusOfHipWaist >= 10){
             Toast.makeText(getApplicationContext(), "Your body shape is hourglass", Toast.LENGTH_SHORT).show();
@@ -130,12 +137,20 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Your body shape is rectangle", Toast.LENGTH_SHORT).show();
             result = "rectangle";
         }
+        else{
+            Toast.makeText(getApplicationContext(), "Your body shape is rectangle", Toast.LENGTH_SHORT).show();
+            result = "rectangle";
+        }
 
+        submitMeasurements(result,fInputBust,fInputHighHip,fInputHip,fInputWaist);
+    }
+
+    public void submitMeasurements(String result, Float fInputBust, Float fInputHighHip, Float fInputHip, Float fInputWaist){
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
-        updateUserDTO.setBust(userBust);
-        updateUserDTO.setHighHip(userHighHip);
-        updateUserDTO.setHip(userHip);
-        updateUserDTO.setWaist(userWaist);
+        updateUserDTO.setBust(fInputBust);
+        updateUserDTO.setHighHip(fInputHighHip);
+        updateUserDTO.setHip(fInputHip);
+        updateUserDTO.setWaist(fInputWaist);
         updateUserDTO.setBodyShape(result);
         loadingAlert.startAlertDialog();
         BodyMeasurementService bodyMeasurementService = retrofitService.createService(BodyMeasurementService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
@@ -144,13 +159,15 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseModel<UserResponseDTO, ErrorDTO>> call, Response<ResponseModel<UserResponseDTO, ErrorDTO>> response) {
                 if(response.body() != null){
                     loadingAlert.closeDialog();
-                    startActivity(new Intent(getApplicationContext(), BodyTypeAboutActivity.class));
+                    startActivity(new Intent(BodyMeasurementsActivity.this, BodyTypeAboutActivity.class));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<UserResponseDTO, ErrorDTO>> call, Throwable t) {
-
+                t.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Failed to update user. Please try again.", Toast.LENGTH_SHORT).show();
+                loadingAlert.closeDialog();
             }
         });
     }

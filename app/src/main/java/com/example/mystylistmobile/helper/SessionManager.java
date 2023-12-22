@@ -1,6 +1,7 @@
 package com.example.mystylistmobile.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.example.mystylistmobile.retrofit.AuthenticationInterceptor;
@@ -147,6 +148,11 @@ public class SessionManager {
         editor.remove(STYLE_TYPE_NAME);
         editor.remove(BODY_SHAPE_ID);
         editor.remove(SAVE_LOGIN);
+        editor.apply();
+    }
+    public void logout() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
         editor.apply();
     }
 

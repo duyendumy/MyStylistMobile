@@ -89,6 +89,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_item_category);
+        retrofitService = new RetrofitService();
         isSelectedSeasonalColor = 1;
         isSelectedBodyType = 1;
         isSelectedStyle = 1;

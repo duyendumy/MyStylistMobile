@@ -28,6 +28,15 @@
                 android:layout_marginStart="150dp"
                 android:layout_gravity="center"
                 android:textColor="@color/dark_purple" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logOutImage"
+                app:layout_constraintStart_toEndOf="@id/detailTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_logout"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="150dp" />
 
             <ListView
                 android:layout_width="match_parent"
