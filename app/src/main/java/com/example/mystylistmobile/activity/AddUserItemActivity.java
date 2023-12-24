@@ -289,7 +289,7 @@ public class AddUserItemActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseModel<UserItem, ErrorDTO>> call, Response<ResponseModel<UserItem, ErrorDTO>> response) {
                 loadingAlert.closeDialog();
                 Toast.makeText(AddUserItemActivity.this, "Save successful!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AddUserItemActivity.this, ClosetActivity.class);
+                Intent intent = new Intent(AddUserItemActivity.this, UserItemActivity.class);
                 startActivity(intent);
             }
 

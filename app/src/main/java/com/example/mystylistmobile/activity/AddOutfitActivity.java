@@ -124,8 +124,6 @@ public class AddOutfitActivity extends AppCompatActivity implements OnCheckboxSt
             UserItem checkedItem = userItems.get(position);
             selectedItems.add(checkedItem.getId());
             Toast.makeText(AddOutfitActivity.this, "Select item " + checkedItem.getId(), Toast.LENGTH_SHORT).show();
-        } else {
-
         }
     }
 

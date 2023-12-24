@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.dto.ForgotPasswordRequest;
@@ -76,7 +78,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                loadingAlert.closeDialog();
+                startActivity(new Intent(ForgotPasswordActivity.this, ResetPasswordActivity.class));
             }
         });
     }

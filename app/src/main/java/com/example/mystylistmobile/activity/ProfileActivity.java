@@ -95,13 +95,14 @@ public class ProfileActivity extends AppCompatActivity {
         authService.forgotPassword(forgotPasswordRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                    loadingAlert.closeDialog();
-                    startActivity(new Intent(ProfileActivity.this, ResetPasswordActivity.class));
+                loadingAlert.closeDialog();
+                startActivity(new Intent(ProfileActivity.this, ResetPasswordActivity.class));
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                loadingAlert.closeDialog();
+                startActivity(new Intent(ProfileActivity.this, ResetPasswordActivity.class));
             }
         });
     }

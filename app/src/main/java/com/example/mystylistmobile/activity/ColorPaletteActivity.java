@@ -85,7 +85,7 @@ public class ColorPaletteActivity extends AppCompatActivity {
         seasonalColorService.getSeasonalColorById(seasonalColorId).enqueue(new Callback<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>>() {
             @Override
             public void onResponse(Call<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> call, Response<ResponseModel<SeasonalColorResponseDTO, ErrorDTO>> response) {
-               if(response.body()!= null) {
+               if(response.body() != null) {
                    loadingAlert.closeDialog();
                    List<String> colors = Arrays.asList(response.body().getResponse().getColorPalette().split(","));
                    populateListView(colors);

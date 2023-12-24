@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,7 +54,6 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
     private List<UserAnswerDTO> partUndertoneAnswer;
 
     private List<UserAnswerDTO> partContrastAnswer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +175,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
                 showToast("Error load contrast question");
             }
         });
+
 
     }
 
@@ -398,6 +399,16 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
         }
     }
 
+    public int getNumberOfAnswers(List<String> answersEachQuestion){
+        int numberOfAnswers = 0;
+        for(String answer: answersEachQuestion){
+            if(answer != null) {
+                numberOfAnswers += 1;
+            }
+        }
+        return numberOfAnswers;
+    }
+
     public void showQuestion(int totalNumberQuestion, int questionIndex,List<String> questions, List<List<String>> answers){
        if(isNextPart == true){
            number_question.setText(String.valueOf("Question " + (totalNumberQuestion - questions.size() + questionIndex+1) + "/" + totalNumberQuestion));
@@ -406,7 +417,8 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
            number_question.setText(String.valueOf("Question " + (questionIndex+1) + "/" + totalNumberQuestion));
        }
         text_question.setText(String.valueOf(questions.get(questionIndex)));
-        showAnswer(answers.get(questionIndex).size(), questionIndex, answers);
+        int numberOfAnswer = getNumberOfAnswers(answers.get(questionIndex));
+        showAnswer(numberOfAnswer, questionIndex, answers);
     }
 
 }

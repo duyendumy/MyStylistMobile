@@ -87,13 +87,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
         authService.resetPassword(resetPasswordRequest).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                    loadingAlert.closeDialog();
-                    startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
+                loadingAlert.closeDialog();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                loadingAlert.closeDialog();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

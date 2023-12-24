@@ -14,59 +14,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/image_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/ic_back_purple" />
 
             <TextView
                 android:id="@+id/itemCategory"
-                android:layout_width="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 android:text="Item Category"
                 android:textColor="@color/dark_purple"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/image_back" />
+                android:textSize="20sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="48dp"
-                android:id="@+id/inputSearch"
-                android:background="@drawable/purple_border"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:padding="10dp"
-                android:hint="Search"
-                android:gravity="start|center_vertical"
-                android:textColor="@color/black"/>
             <ImageView
                 android:id="@+id/filterButton"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:padding="10dp"
                 android:background="@drawable/background_circle_btn"
                 app:srcCompat="@drawable/ic_filter" />
         </LinearLayout>
-    <LinearLayout
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

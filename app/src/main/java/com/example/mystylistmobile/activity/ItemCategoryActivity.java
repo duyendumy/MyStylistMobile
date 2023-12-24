@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.adapter.ItemCategoryAdapter;
@@ -47,6 +48,8 @@ public class ItemCategoryActivity extends AppCompatActivity {
     private RetrofitService retrofitService;
 
     private LoadingAlert loadingAlert;
+
+    private TextView itemCategory;
 
     public static int isSelectedSeasonalColor;
     public static int isSelectedBodyType;
@@ -94,6 +97,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
         isSelectedBodyType = 1;
         isSelectedStyle = 1;
         loadingAlert = new LoadingAlert(ItemCategoryActivity.this);
+        itemCategory = findViewById(R.id.itemCategory);
         itemCategoryGridView = findViewById(R.id.gridView);
         filterButton = findViewById(R.id.filterButton);
         backImageView = findViewById(R.id.image_back);

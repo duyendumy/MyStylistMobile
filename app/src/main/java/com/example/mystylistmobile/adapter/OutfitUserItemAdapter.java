@@ -18,7 +18,9 @@ import com.example.mystylistmobile.R;
 import com.example.mystylistmobile.helper.OnCheckboxStateChangedListener;
 import com.example.mystylistmobile.model.UserItem;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OutfitUserItemAdapter extends BaseAdapter {
 
@@ -28,6 +30,8 @@ public class OutfitUserItemAdapter extends BaseAdapter {
 
     private OnCheckboxStateChangedListener checkboxListener;
 
+    private Set<Long> selectedItems;
+
     public void setOnCheckboxStateChangedListener(OnCheckboxStateChangedListener listener) {
         this.checkboxListener = listener;
     }
@@ -35,6 +39,10 @@ public class OutfitUserItemAdapter extends BaseAdapter {
     public OutfitUserItemAdapter(@NonNull Context context, List<UserItem> userItems) {
         this.userItems = userItems;
         this.context = context;
+        this.selectedItems = new HashSet<>();
+    }
+    public Set<Long> getSelectedItems() {
+        return selectedItems;
     }
 
     @Override
@@ -74,11 +82,18 @@ public class OutfitUserItemAdapter extends BaseAdapter {
                 .error(R.drawable.icon_app)
                 .into(colorImage);
 
+        itemCheckBox.setChecked(selectedItems.contains(userItem.getId()));
+
         itemCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (checkboxListener != null) {
                     checkboxListener.onCheckboxStateChanged(position, isChecked);
+                }
+                if (isChecked) {
+                    selectedItems.add(userItem.getId());
+                } else {
+                    selectedItems.remove(userItem.getId());
                 }
             }
         });
