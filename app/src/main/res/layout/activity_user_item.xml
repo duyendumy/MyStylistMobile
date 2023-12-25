@@ -37,20 +37,13 @@
                 android:textColor="@color/dark_purple"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/image_back" />
-            <ImageView
-                android:id="@+id/filterButton"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="80dp"
-                android:padding="10dp"
-                android:background="@drawable/background_circle_btn"
-                app:srcCompat="@drawable/ic_filter" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
             android:orientation="horizontal">
             <Button
                 android:layout_width="300dp"
@@ -58,9 +51,6 @@
                 android:text="Add item"
                 android:id="@+id/addOutfitBtn"
                 android:textSize="18sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
                 android:backgroundTint="@color/dark_purple"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

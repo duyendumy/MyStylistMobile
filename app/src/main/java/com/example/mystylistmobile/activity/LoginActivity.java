@@ -135,6 +135,10 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }
+                    else{
+                        loadingAlert.closeDialog();
+                        Toast.makeText(LoginActivity.this,"Invalid username or password!",Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 

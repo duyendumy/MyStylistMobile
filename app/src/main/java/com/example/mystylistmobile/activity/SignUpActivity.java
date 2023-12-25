@@ -38,6 +38,8 @@ public class SignUpActivity extends AppCompatActivity {
     private Button signUpBtn;
     private TextView logInTextView;
 
+    private LoadingAlert loadingAlert;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_sign_up);
+        loadingAlert = new LoadingAlert(SignUpActivity.this);
         userNameEditText = findViewById(R.id.userNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -94,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                 confirmPasswordEditText.setError("Password did not match");
                 return;
             }
+            loadingAlert.startAlertDialog();
             retrofitService = new RetrofitService();
             sessionManager = new SessionManager(this);
             UserCreateDTO userCreateDTO = new UserCreateDTO(email, password, name);
@@ -102,13 +106,21 @@ public class SignUpActivity extends AppCompatActivity {
             authService.register(userCreateDTO).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    Toast.makeText(SignUpActivity.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    if(response.isSuccessful()) {
+                        loadingAlert.closeDialog();
+                        Toast.makeText(SignUpActivity.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        loadingAlert.closeDialog();
+                        Toast.makeText(SignUpActivity.this, "Email already existed!", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
+                    loadingAlert.closeDialog();
                     Toast.makeText(SignUpActivity.this, "Sign up failed!", Toast.LENGTH_SHORT).show();
                     Logger.getLogger(SignUpActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
                 }

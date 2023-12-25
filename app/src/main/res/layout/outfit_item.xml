@@ -12,12 +12,6 @@
         android:layout_height="250dp"
         app:cardElevation="10dp"
         app:cardCornerRadius="20dp">
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/items_layout"
-            android:orientation="horizontal">
-        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,14 +28,14 @@
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_add_item" />
+                    />
                 <!-- Second ImageView in the first row -->
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_add_item" />
+                   />
             </LinearLayout>
             <!-- Second Row -->
             <LinearLayout
@@ -55,14 +49,14 @@
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_add_item" />
+                    />
                 <!-- Fourth ImageView in the second row -->
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_add_item" />
+                    />
             </LinearLayout>
         </LinearLayout>
         <ImageView
