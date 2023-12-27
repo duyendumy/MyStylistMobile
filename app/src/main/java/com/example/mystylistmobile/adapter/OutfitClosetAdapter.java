@@ -82,25 +82,25 @@ public class OutfitClosetAdapter extends BaseAdapter {
                 case 0:
                     Glide.with(context)
                             .load(userItems.get(0).getImage())
-                            .error(R.drawable.icon_app)
+                            .error(R.drawable.white)
                             .into(imageView1);
                     break;
                 case 1:
                     Glide.with(context)
                             .load(userItems.get(1).getImage())
-                            .error(R.drawable.icon_app)
+                            .error(R.drawable.white)
                             .into(imageView2);
                     break;
                 case 2:
                     Glide.with(context)
                             .load(userItems.get(2).getImage())
-                            .error(R.drawable.icon_app)
+                            .error(R.drawable.white)
                             .into(imageView3);
                     break;
                 case 3:
                     Glide.with(context)
                             .load(userItems.get(3).getImage())
-                            .error(R.drawable.icon_app)
+                            .error(R.drawable.white)
                             .into(imageView4);
                     break;
                 default:

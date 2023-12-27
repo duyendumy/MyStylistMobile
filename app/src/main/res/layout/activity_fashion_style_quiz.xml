@@ -110,7 +110,7 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 1"
                     android:textColor="@color/white" />
 
@@ -123,7 +123,7 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 2"
                     android:textColor="@color/white" />
 
@@ -136,7 +136,7 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 3"
                     android:textColor="@color/white" />
 
@@ -149,7 +149,7 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 4"
                     android:textColor="@color/white" />
 
@@ -162,7 +162,7 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 5"
                     android:textColor="@color/white" />
 
@@ -175,12 +175,11 @@
                     android:fontFamily="@font/poppins"
                     android:textAllCaps="false"
                     android:gravity="left|center_vertical"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:text="choose 6"
                     android:textColor="@color/white" />
 
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </ScrollView>

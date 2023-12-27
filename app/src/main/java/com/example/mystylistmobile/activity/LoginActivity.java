@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<RegisterV2ResponseDTO> call, Throwable t) {
+                    loadingAlert.closeDialog();
                     Toast.makeText(LoginActivity.this,"Sign in failed!",Toast.LENGTH_SHORT).show();
                     Logger.getLogger(LoginActivity.class.getName()).log(Level.SEVERE, "Error occurred",t);
                 }

@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="200dp"
             android:layout_toEndOf="@id/listName"
             app:srcCompat="@drawable/ic_arrow_forward" />
 

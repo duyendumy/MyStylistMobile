@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mystylistmobile.R;
+import com.example.mystylistmobile.dto.SeasonalColorQuestionDTO;
 import com.example.mystylistmobile.dto.SubmitSeasonalColorQuizDTO;
 import com.example.mystylistmobile.dto.UserAnswerDTO;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
@@ -25,6 +26,8 @@ import com.example.mystylistmobile.model.UndertoneQuestion;
 import com.example.mystylistmobile.retrofit.RetrofitService;
 import com.example.mystylistmobile.service.AttemptQuizService;
 import com.example.mystylistmobile.service.ContrastQuestionService;
+import com.example.mystylistmobile.service.SeasonalColorQuestionService;
+import com.example.mystylistmobile.service.SeasonalColorService;
 import com.example.mystylistmobile.service.UndertoneQuestionService;
 
 import java.io.IOException;
@@ -104,7 +107,56 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
         List<String> coolResults = new ArrayList<String>();
         List<String> warmResults = new ArrayList<String>();
 
-        UndertoneQuestionService undertoneQuestionService = retrofitService.createService(UndertoneQuestionService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
+        SeasonalColorQuestionService seasonalColorQuestionService = retrofitService.createService(SeasonalColorQuestionService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
+        seasonalColorQuestionService.getAllSeasonalColorQuestions().enqueue(new Callback<ResponseModel<SeasonalColorQuestionDTO, ErrorDTO>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<SeasonalColorQuestionDTO, ErrorDTO>> call, Response<ResponseModel<SeasonalColorQuestionDTO, ErrorDTO>> response) {
+                if(response.body() != null) {
+                    List<UndertoneQuestion> questions = response.body().getResponse().getUndertoneQuestions();
+                    for (UndertoneQuestion question : questions) {
+                        undertoneQuestions.add(question.getQuestion());
+                        idUndertoneQuestions.add(question.getId());
+
+                        List<String> answerEachQuestion = new ArrayList<String>();
+                        answerEachQuestion.add(question.getCoolOption());
+                        answerEachQuestion.add(question.getWarmOption());
+                        answerEachQuestion.add(question.getNeutralOption());
+                        undertoneAnswers.add(answerEachQuestion);
+
+                        coolResults.add(question.getCoolOption());
+                        warmResults.add(question.getWarmOption());
+
+                    }
+                    List<ContrastQuestion> questions2 = response.body().getResponse().getContrastQuestion();
+                    for (ContrastQuestion question : questions2) {
+                        contrastQuestions.add(question.getQuestion());
+                        idContrastQuestions.add(question.getId());
+
+                        List<String> answerEachQuestion = new ArrayList<String>();
+                        answerEachQuestion.add(question.getHighOption());
+                        answerEachQuestion.add(question.getLowOption());
+                        answerEachQuestion.add(question.getMediumOption());
+                        contrastAnswers.add(answerEachQuestion);
+
+                        highContrastResults.add(question.getHighOption());
+                        lowContrastResults.add(question.getLowOption());
+                     }
+                if (!undertoneQuestions.isEmpty() && !contrastQuestions.isEmpty()) {
+                    loadingAlert.closeDialog();
+                    showUndertoneQuiz(idUndertoneQuestions, undertoneQuestions, idContrastQuestions, contrastQuestions, undertoneAnswers,
+                            contrastAnswers, coolResults, warmResults, highContrastResults, lowContrastResults);
+                }
+             }
+            }
+            @Override
+            public void onFailure(Call<ResponseModel<SeasonalColorQuestionDTO, ErrorDTO>> call, Throwable t) {
+                loadingAlert.closeDialog();
+                t.printStackTrace();
+                showToast("Error load seasonal color question");
+            }
+        });
+
+       /* UndertoneQuestionService undertoneQuestionService = retrofitService.createService(UndertoneQuestionService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
         undertoneQuestionService.getAllUndertoneQuestions().enqueue(new Callback<ResponseModel<List<UndertoneQuestion>, ErrorDTO>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<UndertoneQuestion>, ErrorDTO>> call, Response<ResponseModel<List<UndertoneQuestion>, ErrorDTO>> response) {
@@ -174,7 +226,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
                 t.printStackTrace();
                 showToast("Error load contrast question");
             }
-        });
+        });*/
 
 
     }
