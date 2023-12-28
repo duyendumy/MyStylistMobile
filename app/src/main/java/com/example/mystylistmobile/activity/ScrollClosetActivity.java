@@ -1,6 +1,7 @@
 package com.example.mystylistmobile.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,24 +10,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mystylistmobile.R;
-import com.example.mystylistmobile.adapter.ItemClosetAdapter;
-import com.example.mystylistmobile.adapter.OutfitClosetAdapter;
+import com.example.mystylistmobile.adapter.ScrollItemClosetAdapter;
+import com.example.mystylistmobile.adapter.ScrollOutfitClosetAdapter;
 import com.example.mystylistmobile.dto.response.ErrorDTO;
 import com.example.mystylistmobile.dto.response.ResponseModel;
 import com.example.mystylistmobile.helper.SessionManager;
 import com.example.mystylistmobile.model.UserItem;
 import com.example.mystylistmobile.model.UserOutfit;
 import com.example.mystylistmobile.retrofit.RetrofitService;
-
 import com.example.mystylistmobile.service.UserItemService;
 import com.example.mystylistmobile.service.UserOutfitService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 
 import java.util.List;
 
@@ -34,11 +32,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClosetActivity extends AppCompatActivity {
+public class ScrollClosetActivity extends AppCompatActivity {
 
-    private GridView itemClosetGridView;
+    private RecyclerView recyclerViewMyItems;
 
-    private GridView outfitClosetGridView;
+    private RecyclerView recyclerViewMyOutfits;
 
     private BottomNavigationView bottomNavigationView;
 
@@ -63,11 +61,11 @@ public class ClosetActivity extends AppCompatActivity {
         );
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_closet);
+        setContentView(R.layout.activity_scroll_closet);
         retrofitService = new RetrofitService();
-        loadingAlert = new LoadingAlert(ClosetActivity.this);
-        itemClosetGridView = findViewById(R.id.gridViewMyItems);
-        outfitClosetGridView = findViewById(R.id.gridViewTodayOutfits);
+        loadingAlert = new LoadingAlert(ScrollClosetActivity.this);
+        recyclerViewMyItems = findViewById(R.id.recyclerViewMyItems);
+        recyclerViewMyOutfits = findViewById(R.id.recyclerViewMyOutfits);
         imgAddItem = findViewById(R.id.imgAddItem);
         viewAllItems = findViewById(R.id.viewAllItems);
         viewAllOutfits = findViewById(R.id.viewAllOutfits);
@@ -75,14 +73,14 @@ public class ClosetActivity extends AppCompatActivity {
         viewAllItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(ClosetActivity.this, UserItemActivity.class);
+                redirectActivity(ScrollClosetActivity.this, UserItemActivity.class);
             }
         });
 
         viewAllOutfits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(ClosetActivity.this, UserOutfitActivity.class);
+                redirectActivity(ScrollClosetActivity.this, UserOutfitActivity.class);
             }
         });
 
@@ -109,7 +107,7 @@ public class ClosetActivity extends AppCompatActivity {
         });
     }
 
-    public void loadUserOutfit(){
+   public void loadUserOutfit(){
         loadingAlert.startAlertDialog();
         UserOutfitService userOutfitService = retrofitService.createService(UserOutfitService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
         userOutfitService.getAllUserOutfits().enqueue(new Callback<ResponseModel<List<UserOutfit>, ErrorDTO>>() {
@@ -126,14 +124,16 @@ public class ClosetActivity extends AppCompatActivity {
     }
 
     private void populateUserItemListView(List<UserItem> userItemList){
-        ItemClosetAdapter itemClosetAdapter = new ItemClosetAdapter( this, userItemList);
-        itemClosetGridView.setAdapter(itemClosetAdapter);
+        ScrollItemClosetAdapter itemClosetAdapter = new ScrollItemClosetAdapter( this, userItemList);
+        recyclerViewMyItems.setAdapter(itemClosetAdapter);
     }
+
     private void populateUserOutfitListView(List<UserOutfit> userOutfits){
-        OutfitClosetAdapter outfitClosetAdapter = new OutfitClosetAdapter(this, userOutfits);
-        outfitClosetGridView.setAdapter(outfitClosetAdapter);
+        ScrollOutfitClosetAdapter outfitClosetAdapter = new ScrollOutfitClosetAdapter(this, userOutfits);
+        recyclerViewMyOutfits.setAdapter(outfitClosetAdapter);
 
     }
+
     public void handleBottomNavigation(){
         this.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {

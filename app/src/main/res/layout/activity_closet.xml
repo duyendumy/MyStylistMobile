@@ -96,7 +96,8 @@
                 android:verticalSpacing="6dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleMyItems"
-                android:numColumns="2"/>
+                android:numColumns="2"
+                android:rowCount="1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintTodayOutfit"
@@ -137,7 +138,8 @@
                 android:verticalSpacing="6dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewAllOutfits"
-                android:numColumns="2"/>
+                android:numColumns="2"
+                android:rowCount="1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

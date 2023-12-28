@@ -107,6 +107,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
         List<String> coolResults = new ArrayList<String>();
         List<String> warmResults = new ArrayList<String>();
 
+
         SeasonalColorQuestionService seasonalColorQuestionService = retrofitService.createService(SeasonalColorQuestionService.class, SessionManager.getInstance(this).getUserToken(), SessionManager.getInstance(this).getRefreshToken(), this);
         seasonalColorQuestionService.getAllSeasonalColorQuestions().enqueue(new Callback<ResponseModel<SeasonalColorQuestionDTO, ErrorDTO>>() {
             @Override
@@ -125,7 +126,6 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
 
                         coolResults.add(question.getCoolOption());
                         warmResults.add(question.getWarmOption());
-
                     }
                     List<ContrastQuestion> questions2 = response.body().getResponse().getContrastQuestion();
                     for (ContrastQuestion question : questions2) {
@@ -140,6 +140,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
 
                         highContrastResults.add(question.getHighOption());
                         lowContrastResults.add(question.getLowOption());
+
                      }
                 if (!undertoneQuestions.isEmpty() && !contrastQuestions.isEmpty()) {
                     loadingAlert.closeDialog();
@@ -299,6 +300,10 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
                 Toast.makeText(this, "You are summer", Toast.LENGTH_SHORT).show();
                 result = "summer";
             }
+            else if(userContrast == "Medium"){
+                Toast.makeText(this, "You are neutral", Toast.LENGTH_SHORT).show();
+                result = "neutral";
+            }
         }
         else if(userUndertone == "Warm"){
             if(userContrast == "High"){
@@ -308,6 +313,10 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
             else if(userContrast == "Low"){
                 Toast.makeText(this, "You are spring", Toast.LENGTH_SHORT).show();
                 result = "spring";
+            }
+            else if(userContrast == "Medium"){
+                Toast.makeText(this, "You are neutral", Toast.LENGTH_SHORT).show();
+                result = "neutral";
             }
         }
         else{
@@ -368,7 +377,7 @@ public class SeasonalColorQuizActivity extends AppCompatActivity {
                 userContrast = "Low";
             }
             else{
-                userContrast = "Neutral";
+                userContrast = "Medium";
             }
             validateSeasonalColor();
         }

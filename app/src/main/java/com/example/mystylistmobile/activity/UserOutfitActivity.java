@@ -67,7 +67,7 @@ public class UserOutfitActivity extends AppCompatActivity implements OnClickUser
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(UserOutfitActivity.this, ClosetActivity.class);
+                redirectActivity(UserOutfitActivity.this, ScrollClosetActivity.class);
             }
         });
         addOutfitBtn.setOnClickListener(new View.OnClickListener() {

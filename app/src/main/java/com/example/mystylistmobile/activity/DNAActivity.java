@@ -157,7 +157,7 @@ public class DNAActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.bottom_closet:
-                    startActivity(new Intent(getApplicationContext(), ClosetActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ScrollClosetActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                     return true;

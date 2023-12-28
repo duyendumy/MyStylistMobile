@@ -76,7 +76,7 @@ public class UserItemActivity extends AppCompatActivity implements OnClickUserIt
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(UserItemActivity.this, ClosetActivity.class);
+                redirectActivity(UserItemActivity.this, ScrollClosetActivity.class);
             }
         });
         loadUserItem();
