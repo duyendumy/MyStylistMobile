@@ -34,8 +34,6 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
     private LoadingAlert loadingAlert;
     private EditText inputBust, inputWaist, inputHighHip, inputHip;
 
-  /*  private Float fInputBust, fInputWaist, fInputHighHip, fInputHip;*/
-
     private Button cancelButton, saveButton;
 
 
@@ -80,69 +78,89 @@ public class BodyMeasurementsActivity extends AppCompatActivity {
 
     }
 
-    public void handleClickSaveButton(){
-        if(inputBust.getText().toString().trim().equalsIgnoreCase("")){
+    public void handleClickSaveButton() {
+        if (inputBust.getText().toString().trim().equalsIgnoreCase("")) {
             inputBust.setError("Please enter your bust");
             return;
         }
-        if(inputWaist.getText().toString().trim().equalsIgnoreCase("")){
+        if (inputWaist.getText().toString().trim().equalsIgnoreCase("")) {
             inputWaist.setError("Please enter your waist");
             return;
         }
-        if(inputHighHip.getText().toString().trim().equalsIgnoreCase("")){
+        if (inputHighHip.getText().toString().trim().equalsIgnoreCase("")) {
             inputHighHip.setError("Please enter your high hip");
             return;
         }
-        if(inputHip.getText().toString().trim().equalsIgnoreCase("")){
+        if (inputHip.getText().toString().trim().equalsIgnoreCase("")) {
             inputHip.setError("Please enter your hip");
             return;
         }
 
-        Float fInputBust = Float.valueOf(inputBust.getText().toString());
-        Float fInputWaist = Float.valueOf(inputWaist.getText().toString());
-        Float fInputHighHip = Float.valueOf(inputHighHip.getText().toString());
-        Float fInputHip = Float.valueOf(inputHip.getText().toString());
+        Float fInputBust;
+        try {
+            fInputBust = Float.valueOf(inputBust.getText().toString());
+        } catch (NumberFormatException e) {
+            inputBust.setError("Invalid input for bust");
+            return;
+        }
+        Float fInputWaist;
+        try {
+            fInputWaist = Float.valueOf(inputWaist.getText().toString());
+        } catch (NumberFormatException e) {
+            inputWaist.setError("Invalid input for waist");
+            return;
+        }
+
+        Float fInputHighHip;
+        try {
+            fInputHighHip = Float.valueOf(inputHighHip.getText().toString());
+        } catch (NumberFormatException e) {
+            inputHighHip.setError("Invalid input for high hip");
+            return;
+        }
+
+        Float fInputHip;
+        try {
+            fInputHip = Float.valueOf(inputHip.getText().toString());
+        } catch (NumberFormatException e) {
+            inputHip.setError("Invalid input for hip");
+            return;
+        }
 
         Float minusOfBustHip = fInputBust - fInputHip;
         Float minusOFBustWaist = fInputBust - fInputWaist;
         Float minusOfHipWaist = fInputHip - fInputWaist;
         Float minusOfHighHipWaist = fInputHighHip - fInputWaist;
-        Float minusOfHipBust= fInputHip - fInputBust;
+        Float minusOfHipBust = fInputHip - fInputBust;
         String result = "";
-        if(minusOfBustHip <= 1 && minusOfHipBust <= 3.6 && minusOFBustWaist >= 9 && minusOfHipWaist >= 10){
+        if (minusOfBustHip <= 1 && minusOfHipBust <= 3.6 && minusOFBustWaist >= 9 && minusOfHipWaist >= 10) {
             Toast.makeText(getApplicationContext(), "Your body shape is hourglass", Toast.LENGTH_SHORT).show();
             result = "hourglass";
-        }
-        else if(minusOfHipBust >= 3.6 && minusOfHipBust < 10 && minusOfHipWaist >= 9 && minusOfHighHipWaist >= 9){
+        } else if (minusOfHipBust >= 3.6 && minusOfHipBust < 10 && minusOfHipWaist >= 9 && minusOfHighHipWaist >= 9) {
             Toast.makeText(getApplicationContext(), "Your body shape is bottom hourglass", Toast.LENGTH_SHORT).show();
             result = "bottom hourglass";
-        }
-        else if(minusOfBustHip > 1 && minusOfBustHip < 10 && minusOFBustWaist >= 9){
+        } else if (minusOfBustHip > 1 && minusOfBustHip < 10 && minusOFBustWaist >= 9) {
             Toast.makeText(getApplicationContext(), "Your body shape is top hourglass", Toast.LENGTH_SHORT).show();
             result = "top hourglass";
-        }
-        else if(minusOfHipBust > 2 && minusOfHipWaist >= 7 && minusOfHighHipWaist > 1.193){
+        } else if (minusOfHipBust > 2 && minusOfHipWaist >= 7 && minusOfHighHipWaist > 1.193) {
             Toast.makeText(getApplicationContext(), "Your body shape is spoon", Toast.LENGTH_SHORT).show();
             result = "spoon";
-        }
-        else if(minusOfHipBust >= 3.6 && minusOfHipWaist < 9){
+        } else if (minusOfHipBust >= 3.6 && minusOfHipWaist < 9) {
             Toast.makeText(getApplicationContext(), "Your body shape is triangle", Toast.LENGTH_SHORT).show();
             result = "triangle";
-        }
-        else if(minusOfBustHip >= 3.6 && minusOFBustWaist < 9){
+        } else if (minusOfBustHip >= 3.6 && minusOFBustWaist < 9) {
             Toast.makeText(getApplicationContext(), "Your body shape is inverted triangle", Toast.LENGTH_SHORT).show();
             result = "inverted triangle";
-        }
-        else if(minusOfHipBust >= 3.6 && minusOfBustHip < 3.6 && minusOFBustWaist < 9 && minusOfHipWaist < 10){
+        } else if (minusOfHipBust >= 3.6 && minusOfBustHip < 3.6 && minusOFBustWaist < 9 && minusOfHipWaist < 10) {
             Toast.makeText(getApplicationContext(), "Your body shape is rectangle", Toast.LENGTH_SHORT).show();
             result = "rectangle";
-        }
-        else{
+        } else {
             Toast.makeText(getApplicationContext(), "Your body shape is rectangle", Toast.LENGTH_SHORT).show();
             result = "rectangle";
         }
 
-        submitMeasurements(result,fInputBust,fInputHighHip,fInputHip,fInputWaist);
+        submitMeasurements(result, fInputBust, fInputHighHip, fInputHip, fInputWaist);
+
     }
 
     public void submitMeasurements(String result, Float fInputBust, Float fInputHighHip, Float fInputHip, Float fInputWaist){
